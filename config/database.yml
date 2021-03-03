@@ -1,0 +1,18 @@
+default: &default
+  host: localhost
+  adapter: postgresql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  encoding: unicode
+  timeout: 5000
+
+development:
+  <<: *default
+  database: slime-kangaroo-development
+  username: carsoncole
+  password: password
+
+test:
+  <<: *default
+  database: slime-kangaroo-test
+  username: carsoncole
+  password: password
