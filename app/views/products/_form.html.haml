@@ -15,5 +15,9 @@
   .form-group
     = f.label :price
     = f.text_field :price, class: 'form-control'
+  .form-group
+    = f.label :images
+    
+    = f.file_field :images, multiple: true, class: 'form-control-file'
   .actions
     = f.submit 'Save', class: 'btn btn-primary'
