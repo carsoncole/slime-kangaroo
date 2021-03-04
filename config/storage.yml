@@ -9,8 +9,8 @@ local:
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 digital_ocean:
   service: S3
-  endpoint: <%= ENV["DIGITAL_OCEAN_ENDPOINT"] || Rails.application.credentials.dig(:digital_ocean, :access_key_id) %>
+  endpoint: <%= ENV["DIGITAL_OCEAN_ENDPOINT"] || Rails.application.credentials.dig(:digital_ocean, :endpoint) %>
   access_key_id: <%= ENV["DIGITAL_OCEAN_ACCESS_KEY"] || Rails.application.credentials.dig(:digital_ocean, :access_key_id) %>
   secret_access_key: <%= ENV["DIGITAL_OCEAN_SECRET_KEY"] || Rails.application.credentials.dig(:digital_ocean, :secret_access_key) %>
-  region: <%= ENV["DIGITAL_OCEAN_REGION"] || Rails.application.credentials.dig(:digital_ocean, :access_key_id) %>
+  region: <%= ENV["DIGITAL_OCEAN_REGION"] || Rails.application.credentials.dig(:digital_ocean, :region) %>
   bucket: <%= ENV["DIGITAL_OCEAN_BUCKET"] || Rails.application.credentials.dig(:digital_ocean, :bucket) %>
