@@ -16,6 +16,9 @@
     = f.label :price
     = f.text_field :price, class: 'form-control'
   .form-group
+    = f.label :is_active
+    = f.check_box :is_active, class: 'form-control'
+  .form-group
     = f.label :images
     
     = f.file_field :images, multiple: true, class: 'form-control-file'

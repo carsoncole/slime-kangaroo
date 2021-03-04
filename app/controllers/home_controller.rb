@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @products = Product.limit(3)
+    @products = Product.active.limit(3)
   end
 end
