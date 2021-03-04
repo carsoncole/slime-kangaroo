@@ -13,4 +13,4 @@ digital_ocean:
   access_key_id: <%= ENV["DIGITAL_OCEAN_ACCESS_KEY"] || Rails.application.credentials.dig(:digital_ocean, :access_key_id) %>
   secret_access_key: <%= ENV["DIGITAL_OCEAN_SECRET_KEY"] || Rails.application.credentials.dig(:digital_ocean, :secret_access_key) %>
   region: sfo2
-  bucket: ahoyx
+  bucket: <%= ENV["DIGITAL_OCEAN_BUCKET"] || Rails.application.credentials.dig(:digital_ocean, :bucket) %>
