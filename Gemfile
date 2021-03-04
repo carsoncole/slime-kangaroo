@@ -59,3 +59,4 @@ gem "haml-rails"
 gem 'kaminari'
 gem 'bugsnag'
 gem 'clearance'
+gem 'font-awesome-rails'

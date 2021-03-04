@@ -10,12 +10,24 @@
   = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
 
   %body
-    = yield
+    %nav.navbar.navbar-expand-lg.navbar-light.bg-light#main-nav
+      = link_to root_path, class: 'navbar-brand', id: 'brand-logo' do
+        = image_tag "slime-kangaroo-logo.png", alt: 'Slime Kangaroo Logo', width: 60, class: 'img-fluid'
+      %button.navbar-toggler(type='button' data-toggle="collapse" data-target="#navbarSupportedContent")
+        %span.navbar-toggler-icon
+
+
+      %div.collapse.navbar-collapse#navbarSupportedContent
+        %ul.navbar-nav.mr-auto
+          - if signed_in?
+            %li= link_to "Products", products_path
+        - if signed_in?
+          = link_to 'Sign out', sign_out_path, method: :delete
+        - else
+          = link_to 'Sign in', sign_in_path, class: 'nav-link'
+
+    .container
+      = yield
 
   %footer
-    - if signed_in?
-      Signed in as:
-      = current_user.email
-      = button_to 'Sign out', sign_out_path, method: :delete
-    - else
-      = link_to 'Sign in', sign_in_path
+    Copyright 2021 Slime Kangaroo

@@ -1,18 +1,21 @@
-%p#notice= notice
+.row
+  .col-md-8
 
-%p
-  %b Name:
-  = @product.name
-%p
-  %b Description:
-  = @product.description
-%p
-  %b Product:
-  = @product.product_id
-%p
-  %b Price:
-  = @product.price
+    %p#notice= notice
 
-= link_to 'Edit', edit_product_path(@product)
-\|
-= link_to 'Back', products_path
+    %p
+      %b Name:
+      = @product.name
+    %p
+      %b Description:
+      = @product.description
+    %p
+      %b Product:
+      = @product.product_id
+    %p
+      %b Price:
+      = @product.price
+
+    = link_to 'Edit', edit_product_path(@product)
+    \|
+    = link_to 'Back', products_path
