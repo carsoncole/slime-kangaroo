@@ -68,6 +68,13 @@ class ProductsController < ApplicationController
     redirect_to root_path
   end
 
+  def remove_from_cart
+    cart = JSON.parse(cookies[:cart])
+    cart.delete(params[:product_id])
+    cookies[:cart] = JSON.generate(cart)
+    redirect_to cart_path
+  end
+
   def cart
     @cart = JSON.parse(cookies[:cart])
   end

@@ -15,11 +15,14 @@
                 - if product.price
                   = number_to_currency(product.price)
                   - total += product.price
+              %td.text-right
+                = button_to 'Remove', remove_from_cart_path(product_id: item), class: 'btn btn-info'
 
         %tr
           %td Total
           %td.text-right
             = number_to_currency(total)
+          %td
 
 .row
   .col-md-3
