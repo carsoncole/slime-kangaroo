@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :require_login, except: %i[ show cart ]
+  before_action :require_login, except: %i[ show cart add_to_cart remove_from_cart]
   before_action :set_product, only: %i[ show edit update destroy ]
 
   # GET /products or /products.json
