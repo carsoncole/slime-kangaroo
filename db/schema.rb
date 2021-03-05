@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 2021_03_05_160546) do
     t.string "date"
     t.decimal "amount", precision: 5, scale: 2, default: "0.0", null: false
     t.datetime "received_at"
+    t.datetime "charged_at"
     t.datetime "shipped_at"
     t.datetime "cancelled_at"
     t.datetime "refunded_at"

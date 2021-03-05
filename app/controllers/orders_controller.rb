@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :require_login, except: %i[ create ]
+  before_action :require_login, except: %i[ create cart add_to_cart remove_from_cart ]
   before_action :set_order, only: %i[ show edit update destroy ]
 
   # GET /orders or /orders.json
@@ -9,11 +9,6 @@ class OrdersController < ApplicationController
 
   # GET /orders/1 or /orders/1.json
   def show
-  end
-
-  # GET /orders/new
-  def new
-    @order = Order.new
   end
 
   # GET /orders/1/edit
@@ -56,6 +51,40 @@ class OrdersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def cart
+    @order = Order.find_by(id: cookies[:order_id])
+  end
+
+  def add_to_cart
+    if order = Order.find_by(id: cookies[:order_id])
+    else
+      order = Order.create
+      cookies[:order_id] = order.id
+    end
+    if existing_item = order.order_items.find_by(product_id: params[:product_id])
+      existing_item.update(quantity: existing_item.quantity += 1)
+    else
+      product = Product.find_by(id: params[:product_id])
+      order.order_items.create(product_id: params[:product_id], quantity: 1, unit_price: product.price) if product
+    end
+    # if cookies[:cart]
+    #   cart = JSON.parse(cookies[:cart])
+    #   cart << params[:product_id]
+    #   cookies[:cart] = JSON.generate(cart)
+    # else
+    #   cookies[:cart] = JSON.generate([params[:product_id]])
+    # end
+    redirect_to cart_path
+  end
+
+  def remove_from_cart
+    if order = Order.find_by(id: cookies[:order_id])
+      order.order_items.where(product_id: params[:product_id]).destroy_all
+    end
+    redirect_to cart_path
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

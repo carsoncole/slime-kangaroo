@@ -39,6 +39,37 @@ h1 {
       width: 6em;
       text-align: center;
     }
+    &.quantity {
+      width: 7em;
+      text-align: center;
+    }
+    &.amount {
+      width: 7em;
+      text-align: right;
+    }
+  }
+}
+
+table#orders {
+  th,td {
+    &.actions {
+      text-align: right;
+      width: 12em;
+    }
+    &.status {
+      width: 7em;
+      text-align: center;
+    }
+    &.amount {
+      width: 7em;
+      text-align: right;
+    }
+    &.uuid {
+      width: 6em;
+    }
+    &.datetime {
+      width: 15em;
+    }
   }
 }
 

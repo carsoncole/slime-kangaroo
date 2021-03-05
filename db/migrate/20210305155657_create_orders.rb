@@ -4,6 +4,7 @@ class CreateOrders < ActiveRecord::Migration[6.1]
       t.string :date
       t.decimal :amount, default: 0, null: false, scale: 2, precision: 5
       t.datetime :received_at
+      t.datetime :charged_at
       t.datetime :shipped_at
       t.datetime :cancelled_at
       t.datetime :refunded_at

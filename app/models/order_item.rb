@@ -4,6 +4,7 @@ class OrderItem < ApplicationRecord
 
   before_save :update_amount!
   after_save :update_order_amount!
+  after_destroy :update_order_amount!
 
   def update_amount!
     self.amount = quantity * unit_price
