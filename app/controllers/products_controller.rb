@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :require_login, except: :show
+  before_action :require_login, except: %i[ show cart ]
   before_action :set_product, only: %i[ show edit update destroy ]
 
   # GET /products or /products.json
@@ -55,6 +55,21 @@ class ProductsController < ApplicationController
       format.html { redirect_to products_url, notice: "Product was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def add_to_cart
+    if cookies[:cart]
+      cart = JSON.parse(cookies[:cart])
+      cart << params[:product_id]
+      cookies[:cart] = JSON.generate(cart)
+    else
+      cookies[:cart] = JSON.generate([params[:product_id]])
+    end
+    redirect_to root_path
+  end
+
+  def cart
+    @cart = JSON.parse(cookies[:cart])
   end
 
   private

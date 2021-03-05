@@ -22,8 +22,10 @@
           - if signed_in?
             %li= link_to "Products", products_path, class: 'nav-link'
             %li= link_to "Settings", edit_setting_path(Setting.first_or_create), class: 'nav-link'
+        
+        = link_to "Cart", cart_path, class: 'nav-link'
         - if signed_in?
-          = link_to 'Sign out', sign_out_path, method: :delete
+          = link_to 'Sign out', sign_out_path, method: :delete, class: 'nav-link'
         - else
           = link_to 'Sign in', sign_in_path, class: 'nav-link'
 

@@ -1,0 +1,30 @@
+.row
+  .col-md-3
+  .col-md-6
+    %h1.text-center Cart
+    - if @cart
+      %table.table
+        - total = 0
+        - @cart.each do |item|
+          - product = Product.find(item)
+          - if product&.is_active?
+            %tr
+              %td
+                = Product.find(item).name
+              %td.text-right
+                - if product.price
+                  = number_to_currency(product.price)
+                  - total += product.price
+
+        %tr
+          %td Total
+          %td.text-right
+            = number_to_currency(total)
+
+.row
+  .col-md-3
+  .col-md-6
+    .text-center
+      = button_to "CHECK OUT", "#", class: 'btn btn-lg btn-primary', disabled: true
+      %br
+      = link_to "Continue Shopping", root_path

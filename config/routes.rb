@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     root to: "products#index", as: :signed_in_root
   end
 
+  post 'add-to-cart' => 'products#add_to_cart', as: 'add_to_cart'
+  get 'cart' => 'products#cart', as: 'cart'
   get 'about' => 'home#about', as: 'about'
   resources :settings
 end
