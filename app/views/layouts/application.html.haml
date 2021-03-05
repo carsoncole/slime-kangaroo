@@ -23,12 +23,13 @@
             %li.nav-item= link_to "Products", products_path, class: 'nav-link'
             %li.nav-item= link_to "Settings", edit_setting_path(Setting.first_or_create), class: 'nav-link'
         
-        = link_to cart_path, class: 'nav-link' do
-          = fa_icon "shopping-cart"
-        - if signed_in?
-          = link_to 'Sign out', sign_out_path, method: :delete, class: 'nav-link'
-        - else
-          = link_to 'Sign in', sign_in_path, class: 'nav-link'
+        %ul.navbar-nav
+          = link_to cart_path, class: 'nav-link' do
+            = fa_icon "shopping-cart"
+          - if signed_in?
+            = link_to 'Sign out', sign_out_path, method: :delete, class: 'nav-link'
+          - else
+            = link_to 'Sign in', sign_in_path, class: 'nav-link'
 
     .container
       = yield

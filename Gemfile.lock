@@ -112,6 +112,13 @@ GEM
       activemodel
     erubi (1.10.0)
     erubis (2.7.0)
+    factory_bot (6.1.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
+    faker (2.15.1)
+      i18n (>= 1.6, < 2)
     ffi (1.14.2)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
@@ -285,6 +292,8 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   clearance
+  factory_bot_rails
+  faker
   font-awesome-rails
   haml-rails
   image_processing (~> 1.2)
