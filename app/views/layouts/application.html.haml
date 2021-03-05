@@ -8,7 +8,7 @@
 
   = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
   = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-
+  %script(src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" data-mutate-approach="sync")
   %body
     %nav.navbar.navbar-expand-lg.navbar-light.bg-light#main-nav
       = link_to root_path, class: 'navbar-brand', id: 'brand-logo' do
@@ -23,7 +23,8 @@
             %li= link_to "Products", products_path, class: 'nav-link'
             %li= link_to "Settings", edit_setting_path(Setting.first_or_create), class: 'nav-link'
         
-        = link_to "Cart", cart_path, class: 'nav-link'
+        = link_to cart_path, class: 'nav-link' do
+          = fa_icon "shopping-cart"
         - if signed_in?
           = link_to 'Sign out', sign_out_path, method: :delete, class: 'nav-link'
         - else
