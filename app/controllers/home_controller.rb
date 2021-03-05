@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @products = Product.active.limit(3)
+    @products = Product.active
     @home_page_introduction = Setting.first.home_page_introduction if Setting.first
   end
 
