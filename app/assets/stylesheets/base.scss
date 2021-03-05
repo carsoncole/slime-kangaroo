@@ -39,9 +39,17 @@ h1 {
   }
   .product-name {
     font-weight: 600;
+    font-size: 1.3rem;
+    margin: 1em auto;
     text-align: center;
   }
+}
 
+.product {
+  a:hover {
+    text-decoration: none;
+    color: #aaa;
+  }
 }
 
 footer {
