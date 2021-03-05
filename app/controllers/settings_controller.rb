@@ -3,7 +3,7 @@ class SettingsController < ApplicationController
   end
 
   def edit
-    @setting = Setting.first
+    @setting = Setting.first_or_create
   end
 
   def update
