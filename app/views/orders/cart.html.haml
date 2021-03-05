@@ -1,6 +1,6 @@
 #cart
   %h1= fa_icon "shopping-cart"
-  - if @order&.order_items.any?
+  - if @order&.order_items&.any?
     .row
       .col-md-2
       .col-md-8
