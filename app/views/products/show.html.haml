@@ -9,20 +9,15 @@
       = @product.description
 
 .row
-  .col-md-10
-    - if @product.images.attached? && @product.images.first.representable?
-      = image_tag @product.images.first.representation(resize_to_limit: [600, 600]), class: 'img-fluid rounded float-right'
-
-
-
-.row
-  .col-md-8
-
-
+  .col-md-2
     %p
       %b Price:
       = number_to_currency(@product.price) if @product.price.present?
     = button_to "Buy", add_to_cart_path(product_id: @product.id), class: 'btn btn-primary btn-lg'
+  .col-md-10
+    - if @product.images.attached? && @product.images.first.representable?
+      = image_tag @product.images.first.representation(resize_to_limit: [800, 800]), class: 'img-fluid rounded float-right'
+
 
 .row
   .col-md-8

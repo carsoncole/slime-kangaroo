@@ -22,6 +22,26 @@ h1 {
 }
 
 
+#cart {
+  margin-bottom: 4rem;
+  h1 {
+    margin: 0 0 1.77em 0;
+    text-align: center;
+  }
+  th, td {
+    &.name {
+    }
+    &.price {
+      width: 6em;
+      text-align: right
+    }
+    &.remove-button {
+      width: 6em;
+      text-align: center;
+    }
+  }
+}
+
 #home {
   #logo {
     margin-top: 4.0rem;

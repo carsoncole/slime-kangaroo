@@ -20,8 +20,8 @@
       %div.collapse.navbar-collapse#navbarSupportedContent
         %ul.navbar-nav.mr-auto
           - if signed_in?
-            %li= link_to "Products", products_path, class: 'nav-link'
-            %li= link_to "Settings", edit_setting_path(Setting.first_or_create), class: 'nav-link'
+            %li.nav-item= link_to "Products", products_path, class: 'nav-link'
+            %li.nav-item= link_to "Settings", edit_setting_path(Setting.first_or_create), class: 'nav-link'
         
         = link_to cart_path, class: 'nav-link' do
           = fa_icon "shopping-cart"
