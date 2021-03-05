@@ -1,0 +1,12 @@
+= form_for @setting do |f|
+  
+  .form-group
+    = f.label :about_me
+    = f.rich_text_area :about_me
+
+  .form-group
+    = f.label :home_page_introduction
+    = f.rich_text_area :home_page_introduction
+
+  .submit
+    = f.submit

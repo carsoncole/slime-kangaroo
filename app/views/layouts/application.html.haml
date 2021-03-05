@@ -20,7 +20,9 @@
       %div.collapse.navbar-collapse#navbarSupportedContent
         %ul.navbar-nav.mr-auto
           - if signed_in?
-            %li= link_to "Products", products_path
+            %li= link_to "Products", products_path, class: 'nav-link'
+            - if Setting.first
+              %li= link_to "Settings", edit_setting_path(Setting.first), class: 'nav-link'
         - if signed_in?
           = link_to 'Sign out', sign_out_path, method: :delete
         - else
