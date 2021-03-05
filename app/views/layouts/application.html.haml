@@ -21,6 +21,7 @@
         %ul.navbar-nav.mr-auto
           - if signed_in?
             %li.nav-item= link_to "Products", products_path, class: 'nav-link'
+            %li.nav-item= link_to "Orders", orders_path, class: 'nav-link'
             %li.nav-item= link_to "Settings", edit_setting_path(Setting.first_or_create), class: 'nav-link'
         
         %ul.navbar-nav

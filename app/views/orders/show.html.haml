@@ -1,0 +1,54 @@
+%p#notice= notice
+
+%p
+  %b Date:
+  = @order.date
+%p
+  %b Amount:
+  = @order.amount
+%p
+  %b Received at:
+  = @order.received_at
+%p
+  %b Shipped at:
+  = @order.shipped_at
+%p
+  %b Cancelled at:
+  = @order.cancelled_at
+%p
+  %b Refunded at:
+  = @order.refunded_at
+%p
+  %b Email:
+  = @order.email
+%p
+  %b Street address 1:
+  = @order.street_address_1
+%p
+  %b Street address 2:
+  = @order.street_address_2
+%p
+  %b City:
+  = @order.city
+%p
+  %b State:
+  = @order.state
+%p
+  %b Zip:
+  = @order.zip
+%p
+  %b Country:
+  = @order.country
+
+= link_to 'Edit', edit_order_path(@order)
+\|
+= link_to 'Back', orders_path
+
+
+%table.table
+  - @order.order_items.each do |item|
+    %tr
+      %td= item.product.name
+      %td= item.quantity
+      %td= number_to_currency(item.unit_price)
+      %td= number_to_currency(item.amount)
