@@ -20,12 +20,20 @@ Rails.application.routes.draw do
 
   get 'about' => 'home#about', as: 'about'
   get 'contact' => 'home#contact', as: 'contact'
-  resources :products, :settings, :users
+  resources :products, only: :show
   resources :sessions
-  resources :orders, except: %i[ new create ]
+  resources :orders, only: %i[ new create ]
+  resources :users, only: :show
   get 'cart' => 'orders#cart', as: 'cart'
   post 'add-to-cart' => 'orders#add_to_cart', as: 'add_to_cart'
   post 'remove-from-cart' => 'orders#remove_from_cart', as: 'remove_from_cart'
   get 'shipping' => 'orders#shipping', as: 'shipping'
   get 'checkout' => 'orders#checkout', as: 'checkout'
+
+  namespace 'admin' do
+    resources :products, except: :show
+    resources :settings, :users
+    resources :orders, except: %i[ new create ]
+  end
+
 end
