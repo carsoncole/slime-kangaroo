@@ -8,4 +8,8 @@ class HomeController < ApplicationController
   def about
     @about_me = Setting.first.about_me if Setting.first
   end
+
+  def contact
+    @message = Message.new
+  end
 end

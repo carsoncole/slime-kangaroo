@@ -1,0 +1,14 @@
+- if flash.keys.any?
+  #flash
+    - if flash[:notice]
+      .alert.alert-info
+        .notification-icon= fa_icon "check-circle"
+        = flash[:notice].html_safe
+    - if flash[:alert]
+      .alert.alert-danger
+        .notification-icon= fa_icon "exclamation-circle"
+        = flash[:alert].html_safe
+    - if flash[:warning]
+      .alert.alert-warning
+        .notification-icon= fa_icon "exclamation-triangle"
+        = flash[:warning].html_safe

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_06_181705) do
+ActiveRecord::Schema.define(version: 2021_03_06_184745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -54,12 +54,19 @@ ActiveRecord::Schema.define(version: 2021_03_06_181705) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string "email"
+    t.text "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.uuid "order_id"
     t.integer "product_id"
     t.integer "quantity", default: 0, null: false
-    t.decimal "unit_price", precision: 5, scale: 2
-    t.decimal "amount", precision: 5, scale: 2
+    t.decimal "unit_price", precision: 5, scale: 2, default: "0.0"
+    t.decimal "amount", precision: 5, scale: 2, default: "0.0"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

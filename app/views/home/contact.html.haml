@@ -1,0 +1,16 @@
+.row
+  .col-md-8
+    %h1 Contact
+
+    %p Contact us through this form and we will get back to you as soon as possible.
+
+    = form_for @message do |f|
+      .form-group
+        = f.label :email
+        = f.email_field :email, class: 'form-control'
+
+      .form-group
+        = f.label :message
+        = f.text_area :content, class: 'form-control'
+
+      = f.submit 'Send Message', class: 'btn btn-primary'

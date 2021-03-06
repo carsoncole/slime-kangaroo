@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :messages
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
 
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
   end
 
   get 'about' => 'home#about', as: 'about'
+  get 'contact' => 'home#contact', as: 'contact'
   resources :products, :settings, :users
   resources :sessions
   resources :orders, except: %i[ new create ]

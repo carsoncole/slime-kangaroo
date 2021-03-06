@@ -40,6 +40,7 @@
             = link_to 'Sign in', sign_in_path, class: 'nav-link'
 
     .container
+      = render 'flash'
       = yield
 
   = render 'footer'
