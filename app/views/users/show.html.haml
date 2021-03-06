@@ -1,0 +1,28 @@
+#user
+  .row
+    .col-md-8
+      %h1= @user.name
+      %p= @user.email
+
+  .row
+    .col-md-8
+      %h2 Address
+      = link_to "Edit", edit_user_path(@user)
+      = @user.street_address_1
+      %br
+      - if @user.street_address_2.present?
+        = @user.street_address_2
+        %br
+      = @user.city
+      %br
+      = @user.state
+      = @user.zip_code
+
+  .row
+    .col-md-8
+      %h2 Orders
+      %table.table.table-sm.table-borderless
+        - @user.orders.each do |order|
+          - next if order.status == 'Pending'
+          %tr
+            %td= order.id_short

@@ -2,6 +2,7 @@ class Order < ApplicationRecord
   self.implicit_order_column = "created_at"
 
   has_many :order_items
+  belongs_to :user, optional: true
 
   before_destroy :confirm_pending
 
@@ -29,5 +30,9 @@ class Order < ApplicationRecord
 
   def open?
     shipped_at.nil? && cancelled_at.nil?
+  end
+
+  def id_short
+    id.slice(0,8)
   end
 end

@@ -1,0 +1,28 @@
+#checkout
+  .row
+    .col-md-12
+      %h1 Checkout
+
+  .row
+    .col-md-12
+      .text-center= link_to "Continue shopping", root_path, class: 'continue-shopping-link'
+
+  - if signed_in?
+    .row
+      .col-md-12
+        %h2 Shipping
+
+        = render 'shipping'
+
+
+
+    .row
+      .col-md-12
+        .text-center
+
+  - else
+    .row
+      .col-md-12
+        Create an account
+
+

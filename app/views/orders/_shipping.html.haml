@@ -1,0 +1,28 @@
+= form_for @order do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :addressee, class: 'form-control'
+
+  .form-group
+    = f.label :street
+    = f.text_field :street_address_1, class: 'form-control'
+
+  .form-group
+    = f.label :city
+    = f.text_field :city, class: 'form-control'
+
+  .row
+    .col-md-6
+      .form-group
+        = f.label :state
+        = f.text_field :state, class: 'form-control'
+    .col-md-6
+      .form-group
+        = f.label :zip_code
+        = f.text_field :zip_code, class: 'form-control'
+
+  %br
+
+  .text-center= f.submit "Continue", class: 'btn btn-primary btn-lg'
+
+

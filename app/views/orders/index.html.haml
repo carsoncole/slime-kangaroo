@@ -5,6 +5,7 @@
     %tr
       %th.datetime Created
       %th.uuid ID
+      %th.items Items
       %th.amount Amount
       %th.status Status
       %th.email Email
@@ -15,7 +16,8 @@
     - @orders.each do |order|
       %tr
         %td.datetime= order.created_at
-        %td.uuid= order.id.slice(0,8)
+        %td.uuid= order.id_short
+        %td.items= order.order_items.count
         %td.amount= order.amount
         %td.status= order.status
         %td.email= order.email

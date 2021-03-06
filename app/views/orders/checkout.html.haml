@@ -1,0 +1,11 @@
+#checkout
+  .row
+    .col-md-12
+      .text-center= link_to "Continue shopping", root_path
+
+  - if signed_in?
+    .row
+      .col-md-12
+        %h2 Checkout
+
+        .text-center= button_to "Place Order", "#", class: 'btn btn-primary btn-lg', disabled: true

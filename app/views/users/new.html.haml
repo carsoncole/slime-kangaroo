@@ -1,0 +1,17 @@
+#checkout
+  .row
+    .col-md-12
+      .text-center= link_to "Continue shopping", root_path
+
+  - unless signed_in?
+    .row
+      .col-md-12
+        %h2 Register
+
+
+
+  = form_for @user do |form|
+    = render partial: '/users/form', object: form
+
+    = form.submit
+

@@ -17,14 +17,10 @@ class OrdersController < ApplicationController
 
   # PATCH/PUT /orders/1 or /orders/1.json
   def update
-    respond_to do |format|
-      if @order.update(order_params)
-        format.html { redirect_to @order, notice: "Order was successfully updated." }
-        format.json { render :show, status: :ok, location: @order }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @order.errors, status: :unprocessable_entity }
-      end
+    if @order.update(order_params)
+      redirect_to checkout_path
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -39,6 +35,11 @@ class OrdersController < ApplicationController
 
   def cart
     @order = Order.find_by(id: cookies[:order_id])
+    if signed_in? && @order && @order.user_id.nil?
+      @order.update(user: current_user)
+    elsif signed_in? && @order&.user != current_user
+      cookies.delete(:order_id)
+    end
   end
 
   def add_to_cart
@@ -67,9 +68,31 @@ class OrdersController < ApplicationController
     if order = Order.find_by(id: cookies[:order_id])
       order.order_items.where(product_id: params[:product_id]).destroy_all
     end
+    order.destroy if order.order_items.empty?
     redirect_to cart_path
   end
 
+  def shipping
+    @order = Order.find_by(id: cookies[:order_id])
+    if signed_in? && @order.user_id.nil?
+      @order.update(user: current_user)
+    elsif signed_in? && @order.user != current_user
+      cookies.delete(:order_id)
+    end
+
+    @order.addressee = @order.user.name unless @order.addressee
+    @order.street_address_1 = @order.user.street_address_1 unless @order.street_address_1
+    @order.street_address_2 = @order.user.street_address_2 unless @order.street_address_2
+    @order.city = @order.user.city unless @order.city
+    @order.state = @order.user.state unless @order.state
+    @order.zip_code = @order.user.zip_code unless @order.zip_code
+    render layout: 'checkout'
+  end
+
+  def checkout
+    @order = Order.find_by(id: cookies[:order_id])
+    render layout: 'checkout'
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -79,6 +102,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:date, :amount, :received_at, :shipped_at, :cancelled_at, :refunded_at, :email, :street_address_1, :street_address_2, :city, :state, :zip, :country)
+      params.require(:order).permit(:date, :amount, :received_at, :shipped_at, :cancelled_at, :refunded_at, :email, :street_address_1, :street_address_2, :city, :state, :zip_code, :country, :addressee)
     end
 end

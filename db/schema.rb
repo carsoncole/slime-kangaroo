@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_05_160546) do
+ActiveRecord::Schema.define(version: 2021_03_05_230141) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -77,10 +77,12 @@ ActiveRecord::Schema.define(version: 2021_03_05_160546) do
     t.string "street_address_2"
     t.string "city"
     t.string "state"
-    t.string "zip"
+    t.string "zip_code"
     t.string "country"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.string "addressee"
   end
 
   create_table "products", force: :cascade do |t|
@@ -106,6 +108,14 @@ ActiveRecord::Schema.define(version: 2021_03_05_160546) do
     t.string "encrypted_password", limit: 128
     t.string "confirmation_token", limit: 128
     t.string "remember_token", limit: 128
+    t.string "first_name"
+    t.string "last_name"
+    t.string "street_address_1"
+    t.string "street_address_2"
+    t.string "city"
+    t.string "state"
+    t.string "zip_code"
+    t.string "country"
     t.index ["email"], name: "index_users_on_email"
     t.index ["remember_token"], name: "index_users_on_remember_token"
   end

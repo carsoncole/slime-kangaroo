@@ -1,45 +1,11 @@
-#cart
-  %h1= fa_icon "shopping-cart"
-  - if @order&.order_items&.any?
-    .row
-      .col-md-2
-      .col-md-8
-        %table.table
-          %thead
-            %th
-            %th.price Price
-            %th.quantity Qty
-            %th.amount Total
-            %th
-          - @order.order_items.each do |item|
-            %tr
-              %td.name= link_to item.product.name, product_path(item.product_id)
-              %td.price= number_to_currency(item.unit_price)
-              %td.quantity= item.quantity
-              %td.amount= number_to_currency(item.amount)
-              %td.remove-button
-                = button_to 'Remove', remove_from_cart_path(product_id: item.product_id), class: 'btn btn-info btn-sm'
+= render 'cart'
 
-          %tr
-            %td Total
-            %td
-            %td
-            %td.amount
-              = number_to_currency(@order.amount)
-            %td
-
-    .row
-      .col-md-3
-      .col-md-6
-        .text-center
-          = button_to "CHECK OUT", orders_path, class: 'btn btn-lg btn-primary', disabled: true
-
-  - else
-    .row
-      .col-md-3
-      .col-md-6
-        %strong
-          .text-center Cart is empty
+- if @order&.order_items&.any?
+  .row
+    .col-md-3
+    .col-md-6
+      .text-center
+        = button_to "CHECK OUT", shipping_path, method: :get,class: 'btn btn-lg btn-primary'
 
 .row
   .col-md-12

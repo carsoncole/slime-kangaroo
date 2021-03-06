@@ -1,7 +1,17 @@
 .row
-  .col-md-4
-  .col-md-4
+  .col-md-3
+  .col-md-6
     #clearance.sign-in
-      %h1= t(".title")
+      %h2 Prior customer?
 
       = render partial: '/sessions/form'
+
+
+.row
+  .col-md-3
+  .col-md-6
+    #clearance.sign-in
+      %h2 Register
+      - @user = User.new
+      = render partial: '/users/form'
+
