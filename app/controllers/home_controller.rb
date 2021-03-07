@@ -1,7 +1,7 @@
 #FIXME Responsive nav menu not working
 class HomeController < ApplicationController
   def index
-    @products = Product.active
+    @products = Product.master
     @home_page_introduction = Setting.first.home_page_introduction if Setting.first
   end
 
