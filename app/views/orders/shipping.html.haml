@@ -1,11 +1,5 @@
 #checkout
-  .row
-    .col-md-12
-      %h1 Checkout
-
-  .row
-    .col-md-12
-      .text-center= link_to "Continue shopping", root_path, class: 'continue-shopping-link'
+  = render 'orders/checkout_header'
 
   - if signed_in?
     .row
@@ -24,5 +18,3 @@
     .row
       .col-md-12
         Create an account
-
-

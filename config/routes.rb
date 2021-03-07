@@ -22,18 +22,18 @@ Rails.application.routes.draw do
   get 'contact' => 'home#contact', as: 'contact'
   resources :products, only: :show
   resources :sessions
-  resources :orders, only: %i[ new create ]
-  resources :users, only: :show
+  resources :orders, only: %i[ create update ]
+  resources :users, only: %i[ show edit ]
   get 'cart' => 'orders#cart', as: 'cart'
   post 'add-to-cart' => 'orders#add_to_cart', as: 'add_to_cart'
   post 'remove-from-cart' => 'orders#remove_from_cart', as: 'remove_from_cart'
   get 'shipping' => 'orders#shipping', as: 'shipping'
-  get 'checkout' => 'orders#checkout', as: 'checkout'
+  get 'checkout' => 'orders#shipping', as: 'checkout'
+  get 'review' => 'orders#review', as: 'review'
 
   namespace 'admin' do
     resources :products, except: :show
     resources :settings, :users
-    resources :orders, except: %i[ new create ]
+    resources :orders, only: %i[ index update destroy ]
   end
-
 end

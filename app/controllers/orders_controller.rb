@@ -1,21 +1,21 @@
 class OrdersController < ApplicationController
+  before_action :require_login, only: %i[ update create shipping review]
   before_action :set_order, only: %i[ show edit update destroy ]
 
-  # PATCH/PUT /orders/1 or /orders/1.json
   def update
     if @order.update(order_params)
-      redirect_to checkout_path
+      redirect_to review_path
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /orders/1 or /orders/1.json
-  def destroy
-    @order.destroy
-    respond_to do |format|
-      format.html { redirect_to orders_url, notice: "Order was successfully destroyed." }
-      format.json { head :no_content }
+  def create
+    if order = Order.find_by(id: cookies[:order_id])
+      order.update(order_params)
+      redirect_to review_path
+    else
+      redirect_to shipping_path
     end
   end
 
@@ -40,13 +40,6 @@ class OrdersController < ApplicationController
       product = Product.find_by(id: params[:product_id])
       order.order_items.create(product_id: params[:product_id], quantity: 1, unit_price: product.price) if product
     end
-    # if cookies[:cart]
-    #   cart = JSON.parse(cookies[:cart])
-    #   cart << params[:product_id]
-    #   cookies[:cart] = JSON.generate(cart)
-    # else
-    #   cookies[:cart] = JSON.generate([params[:product_id]])
-    # end
     redirect_to cart_path
   end
 
@@ -60,9 +53,9 @@ class OrdersController < ApplicationController
 
   def shipping
     @order = Order.find_by(id: cookies[:order_id])
-    if signed_in? && @order.user_id.nil?
+    if signed_in? && @order && @order.user_id.nil?
       @order.update(user: current_user)
-    elsif signed_in? && @order.user != current_user
+    elsif signed_in? && @order && @order.user != current_user
       cookies.delete(:order_id)
     end
 
@@ -75,7 +68,7 @@ class OrdersController < ApplicationController
     render layout: 'checkout'
   end
 
-  def checkout
+  def review
     @order = Order.find_by(id: cookies[:order_id])
     render layout: 'checkout'
   end

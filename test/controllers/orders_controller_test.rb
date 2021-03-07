@@ -1,53 +1,81 @@
 require "test_helper"
 
 class OrdersControllerTest < ActionDispatch::IntegrationTest
-  # setup do
-  #   @order = orders(:one)
-  # end
-
-  test "should get cart" do
+  test "should show cart" do
     get cart_url
     assert_response :success
   end
 
-  # test "should get index" do
-  #   get orders_url
-  #   assert_response :success
-  # end
+  test "should add an item to cart, create order, order item" do
+    product = create(:product)
+    assert_difference('Order.count') do
+      assert_difference('OrderItem.count') do
+        post add_to_cart_path, params: { product_id: product.id }
+      end
+    end
 
-  # test "should get new" do
-  #   get new_order_url
-  #   assert_response :success
-  # end
+    assert_redirected_to cart_url
+  end
 
-  # test "should create order" do
-  #   assert_difference('Order.count') do
-  #     post orders_url, params: { order: { amount: @order.amount, cancelled_at: @order.cancelled_at, city: @order.city, country: @order.country, date: @order.date, email: @order.email, received_at: @order.received_at, refunded_at: @order.refunded_at, shipped_at: @order.shipped_at, state: @order.state, street_address_1: @order.street_address_1, street_address_2: @order.street_address_2, zip: @order.zip } }
-  #   end
+  test "should remove an item from cart" do
+    product = create(:product)
+    product_2 = create(:product)
 
-  #   assert_redirected_to order_url(Order.last)
-  # end
+    post add_to_cart_path, params: { product_id: product.id }
+    post add_to_cart_path, params: { product_id: product_2.id }
 
-  # test "should show order" do
-  #   get order_url(@order)
-  #   assert_response :success
-  # end
+    assert_difference('OrderItem.count', -1) do
+      post remove_from_cart_path, params: { product_id: product.id }
+    end
 
-  # test "should get edit" do
-  #   get edit_order_url(@order)
-  #   assert_response :success
-  # end
+    assert_difference('OrderItem.count', -1) do
+      post remove_from_cart_path, params: { product_id: product_2.id }
+    end
 
-  # test "should update order" do
-  #   patch order_url(@order), params: { order: { amount: @order.amount, cancelled_at: @order.cancelled_at, city: @order.city, country: @order.country, date: @order.date, email: @order.email, received_at: @order.received_at, refunded_at: @order.refunded_at, shipped_at: @order.shipped_at, state: @order.state, street_address_1: @order.street_address_1, street_address_2: @order.street_address_2, zip: @order.zip } }
-  #   assert_redirected_to order_url(@order)
-  # end
+    assert_redirected_to cart_url
+  end
 
-  # test "should destroy order" do
-  #   assert_difference('Order.count', -1) do
-  #     delete order_url(@order)
-  #   end
+  test "should remove last item from cart and destroy order" do
+    product = create(:product)
+    product_2 = create(:product)
 
-  #   assert_redirected_to orders_url
-  # end
+    post add_to_cart_path, params: { product_id: product.id }
+    post add_to_cart_path, params: { product_id: product_2.id }
+
+    assert_difference('OrderItem.count', -1) do
+      post remove_from_cart_path, params: { product_id: product.id }
+    end
+
+    assert_equal 1, Order.count
+
+    assert_difference('Order.count', -1) do
+      assert_difference('OrderItem.count', -1) do
+        post remove_from_cart_path, params: { product_id: product_2.id }
+      end
+    end
+
+    assert_redirected_to cart_url
+  end
+
+  test "checkout for unregisterd shopper" do
+    post add_to_cart_path, params: { product: create(:product)}
+    get shipping_url
+    assert_redirected_to sign_in_url
+  end
+
+  test "checkout and register as a user and assign user to order" do
+    post add_to_cart_path, params: { product: create(:product)}
+    get checkout_url
+    assert_redirected_to sign_in_url
+    assert_difference('User.count') do
+      post users_path, params: { user: { email: Faker::Internet.email, password: 'password' } }
+    end
+    assert_redirected_to checkout_url
+    # FIXME Requesting checkout_url seems duplicative here but is required
+    get checkout_url
+    assert_equal User.last, Order.last.reload.user
+
+    post orders_path, params: { order: { addressee: Faker::Name.name, street_address_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zip_code: Faker::Address.zip_code } }
+
+  end
 end
