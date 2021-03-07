@@ -12,7 +12,9 @@
             %th
           - @order.order_items.each do |item|
             %tr
-              %td.name= link_to item.product.name, product_path(item.product_id)
+              %td.name
+                = link_to item.product.name, product_path(item.product_id)
+                = "#{item.product.size_oz} oz" if item.product.size_oz.present?
               %td.price= number_to_currency(item.unit_price)
               %td.quantity= item.quantity
               %td.amount= number_to_currency(item.amount)

@@ -5,13 +5,14 @@ class Order < ApplicationRecord
   belongs_to :user, optional: true
 
   before_destroy :confirm_pending
+  before_save :update_status!
 
   def confirm_pending
     errors.add(:base, 'Can not be destroyed') unless pending?
   end
 
-  def status
-    if refunded_at.present?
+  def update_status!
+    self.status = if refunded_at.present?
       'Refunded'
     elsif cancelled_at.present?
       'Cancelled'

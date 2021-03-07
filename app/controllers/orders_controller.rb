@@ -22,9 +22,12 @@ class OrdersController < ApplicationController
   def cart
     @order = Order.find_by(id: cookies[:order_id])
     if signed_in? && @order && @order.user_id.nil?
+      current_user.orders.where(status: 'Pending').destroy_all
       @order.update(user: current_user)
-    elsif signed_in? && @order&.user != current_user
+    elsif signed_in? && @order && @order&.user != current_user
       cookies.delete(:order_id)
+    elsif signed_in? && current_user.pending_order
+      cookies[:order_id] = current_user.pending_order.id
     end
   end
 

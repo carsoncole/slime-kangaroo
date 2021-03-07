@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_06_184745) do
+ActiveRecord::Schema.define(version: 2021_03_07_222910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 2021_03_06_184745) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
     t.string "addressee"
+    t.string "status"
   end
 
   create_table "products", force: :cascade do |t|
@@ -99,6 +100,8 @@ ActiveRecord::Schema.define(version: 2021_03_06_184745) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "count", default: 0, null: false
     t.boolean "is_active", default: true
+    t.decimal "size_oz", precision: 5, scale: 2
+    t.integer "master_product_id"
   end
 
   create_table "settings", force: :cascade do |t|
