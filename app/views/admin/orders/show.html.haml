@@ -1,54 +1,56 @@
-%p#notice= notice
+#order
+  .row
+    .col-md-8
+      %h1 Order
+      %table.table#order
+        %tr
+          %th Status
+          %td= @order.status
+        %tr
+          %th ID
+          %td= @order.id
+        %tr
+          %th Amount
+          %td= number_to_currency @order.amount
+        %tr
+          %th Charged at
+          %td= @order.charged_at
+        %tr
+          %th Email
+          %td= @order.user.email
+        %tr
+          %th Street address 1
+          %td= @order.street_address_1
+        %tr
+          %th Street address 2
+          %td= @order.street_address_2
+        %tr
+          %th City
+          %td= @order.city
+        %tr
+          %th State
+          %td= @order.state
+        %tr
+          %th Zip code
+          %td= @order.zip_code
 
-%p
-  %b Date:
-  = @order.date
-%p
-  %b Amount:
-  = @order.amount
-%p
-  %b Received at:
-  = @order.received_at
-%p
-  %b Shipped at:
-  = @order.shipped_at
-%p
-  %b Cancelled at:
-  = @order.cancelled_at
-%p
-  %b Refunded at:
-  = @order.refunded_at
-%p
-  %b Email:
-  = @order.email
-%p
-  %b Street address 1:
-  = @order.street_address_1
-%p
-  %b Street address 2:
-  = @order.street_address_2
-%p
-  %b City:
-  = @order.city
-%p
-  %b State:
-  = @order.state
-%p
-  %b Zip:
-  = @order.zip
-%p
-  %b Country:
-  = @order.country
-
-= link_to 'Edit', edit_order_path(@order)
-\|
-= link_to 'Back', orders_path
-
-
-%table.table
-  - @order.order_items.each do |item|
-    %tr
-      %td= item.product.name
-      %td= item.quantity
-      %td= number_to_currency(item.unit_price)
-      %td= number_to_currency(item.amount)
+  .row
+    .col-md-8
+      %h2 Items
+      %table.table#order-items
+        %thead
+          %th Item
+          %th
+          %th.quantity Quantity
+          %th.amount Unit price
+          %th.amount Total
+        - @order.order_items.each do |item|
+          %tr
+            %td= item.product.name
+            %td
+              - if item.product.size_oz
+                = item.product.size_oz
+                oz.
+            %td= item.quantity
+            %td= number_to_currency(item.unit_price)
+            %td= number_to_currency(item.amount)

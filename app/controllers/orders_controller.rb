@@ -20,14 +20,14 @@ class OrdersController < ApplicationController
   end
 
   def cart
-    @order = Order.find_by(id: cookies[:order_id])
+    @order = @cart_order
     if signed_in? && @order && @order.user_id.nil?
-      current_user.orders.where(status: 'Pending').destroy_all
+      current_user.orders.where(status: 'Shopping').destroy_all
       @order.update(user: current_user)
     elsif signed_in? && @order && @order&.user != current_user
       cookies.delete(:order_id)
-    elsif signed_in? && current_user.pending_order
-      cookies[:order_id] = current_user.pending_order.id
+    elsif signed_in? && current_user.shopping_order
+      cookies[:order_id] = current_user.shopping_order.id
     end
   end
 
@@ -84,6 +84,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:date, :amount, :received_at, :shipped_at, :cancelled_at, :refunded_at, :email, :street_address_1, :street_address_2, :city, :state, :zip_code, :country, :addressee)
+      params.require(:order).permit(:date, :amount, :shipped_at, :cancelled_at, :refunded_at, :street_address_1, :street_address_2, :city, :state, :zip_code, :country, :addressee)
     end
 end

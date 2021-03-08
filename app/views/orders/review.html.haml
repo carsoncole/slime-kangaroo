@@ -1,6 +1,8 @@
-#checkout
-  = render 'orders/checkout_header'
 
-  .row
-    .col-md-12
-      %h2 Review
+%section
+  .product
+    = image_tag "slime-kangaroo-logo", width: '250px'
+    .description
+      %h3 Slime Kangaroo
+      %h5= number_to_currency @order.amount
+  %button(type="button" id="checkout-button") Checkout

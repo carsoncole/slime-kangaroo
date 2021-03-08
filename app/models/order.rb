@@ -4,11 +4,13 @@ class Order < ApplicationRecord
   has_many :order_items
   belongs_to :user, optional: true
 
-  before_destroy :confirm_pending
+  before_destroy :confirm_shopping
   before_save :update_status!
 
-  def confirm_pending
-    errors.add(:base, 'Can not be destroyed') unless pending?
+  def confirm_shopping
+    unless shopping?
+      throw(:abort)
+    end
   end
 
   def update_status!
@@ -21,12 +23,12 @@ class Order < ApplicationRecord
     elsif charged_at.present?
       'Fulfillment'
     else
-      "Pending"
+      "Shopping"
     end
   end
 
-  def pending?
-    status == 'Pending'
+  def shopping?
+    status == 'Shopping'
   end
 
   def open?

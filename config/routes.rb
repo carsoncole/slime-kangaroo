@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  get 'charges/new'
+  get 'charges/create'
+  get 'checkout/new'
   resources :messages
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
@@ -31,9 +35,14 @@ Rails.application.routes.draw do
   get 'checkout' => 'orders#shipping', as: 'checkout'
   get 'review' => 'orders#review', as: 'review'
 
+  resources :charges, only: %i[ new create ]
+  post 'stripe-webhook' => "charges#stripe_webhook"
+  get 'charges/success' => 'charges#success', as: 'success'
+  get 'charges/cancel' => 'charges#cancel', as: 'cancel'
+
   namespace 'admin' do
     resources :products, except: :show
     resources :settings, :users
-    resources :orders, only: %i[ index update destroy ]
+    resources :orders, only: %i[ index update show destroy ]
   end
 end

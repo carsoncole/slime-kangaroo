@@ -4,15 +4,15 @@ class Admin::OrdersController < ApplicationController
 
   # GET /orders or /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.order(created_at: :desc)
   end
 
   # DELETE /orders/1 or /orders/1.json
   def destroy
-    @order.destroy
-    respond_to do |format|
-      format.html { redirect_to orders_url, notice: "Order was successfully destroyed." }
-      format.json { head :no_content }
+    if @order.destroy
+      redirect_to admin_orders_url, notice: "Order was successfully destroyed." 
+    else
+      redirect_to admin_orders_url, notice: "Only orders that have a status of 'Shopping' may be destroyed."
     end
   end
 
@@ -24,6 +24,6 @@ class Admin::OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:date, :amount, :received_at, :shipped_at, :cancelled_at, :refunded_at, :email, :street_address_1, :street_address_2, :city, :state, :zip_code, :country, :addressee)
+      params.require(:order).permit(:date, :amount, :shipped_at, :cancelled_at, :refunded_at, :email, :street_address_1, :street_address_2, :city, :state, :zip_code, :country, :addressee)
     end
 end

@@ -6,6 +6,9 @@
   = csrf_meta_tags
   = csp_meta_tag
 
+  %script(src="https://js.stripe.com/v3/")
+  %script(src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch")
+
   = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
   = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %script(src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" data-mutate-approach="sync")
@@ -15,3 +18,5 @@
         .col-md-3
         .col-md-6
           = yield
+
+  = render 'charges/stripe_js'

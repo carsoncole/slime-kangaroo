@@ -4,6 +4,9 @@ class ApplicationController < ActionController::Base
   before_action :set_cart_order
 
   def set_cart_order
-    @cart_order = Order.find_by(id: cookies[:order_id])
+    if cookies[:order_id]
+      @cart_order = Order.find_by(id: cookies[:order_id], charged_at: nil)
+      cookies.delete(:order_id) unless @cart_order
+    end
   end
 end

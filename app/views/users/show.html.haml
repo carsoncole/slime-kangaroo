@@ -23,6 +23,6 @@
       %h2 Orders
       %table.table.table-sm.table-borderless
         - @user.orders.each do |order|
-          - next if order.status == 'Pending'
+          - next if order.status == 'Shopping'
           %tr
             %td= order.id_short
