@@ -30,7 +30,7 @@
             = fa_icon "shopping-cart"
             = surround("(", ")") do
               - if @cart_order
-                = @cart_order.order_items.count
+                = @cart_order.order_items.product.count
               - else
                 0
           - if signed_in?

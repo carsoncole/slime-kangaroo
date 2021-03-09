@@ -4,16 +4,13 @@ class ChargesController < ApplicationController
   def create
     session = Stripe::Checkout::Session.create({
       customer_email: current_user.email,
-      shipping_address_collection: {
-        allowed_countries: ['US', 'CA'],
-      },
       payment_method_types: ['card'],
       line_items: [{
         price_data: {
           unit_amount: (@cart_order.amount*100).to_i,
           currency: 'usd',
           product_data: {
-            name: 'Slime Kangaroo',
+            name: 'Slime Kangaroo'
           },
         },
         quantity: 1,

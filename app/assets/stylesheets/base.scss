@@ -1,9 +1,11 @@
+$base-font-size: 17px;
+
 body {
-  font-size: 18px;
+  font-size: ç;
 }
 
 nav.navbar {
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
   #brand-logo {
     font-size: 1.8rem;
     font-weight: 700;
@@ -23,6 +25,11 @@ p {
 
 h1 {
   font-size: 3rem;
+}
+
+table th,td {
+  vertical-align: middle !important;
+  font-weight: 500;
 }
 
 #user {
@@ -60,32 +67,44 @@ h1 {
   }
 }
 
-#checkout {
-  margin: 4em 0;
-  #logo {
-    margin: 0.75em auto;
-  }
-  h1 {
-    font-size: 2.4rem;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 0.25em;
-  }
-  h2 {
-    text-align: center;
-    border-top: 2px solid #efefef;
-    padding-top: 1.25em;
-    font-size: 1.8rem;
-    margin: 3rem 0 3rem 0;
-  }
+#checkout-header {
   a.continue-shopping-link {
     color: #bcbcbc;
+    &:hover {
+      color: #111;
+      text-decoration: none;
+    }
+  }
+  margin: 0 0 1.77rem 0;
+  border-bottom: 2px solid #efefef;
+  padding-bottom: 1.77rem;
+}
+
+#checkout {
+  margin: 2em 0;
+  h1 {
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 2.5em 0;
+  }
+  h2 {
+    font-size: 1rem;
+    font-weight: 900;
+    margin: 0 0 1em 0;
+  }
+  .btn-super-lg {
+    margin-top: 2em;
+  }
+  .review-element {
+    margin-bottom: 3.5em;
   }
 }
 
 #cart {
-  margin-bottom: 4rem;
-  h1 {
+  margin-bottom: 1rem;
+  .cart-icon {
+    font-size: 2.75rem;
     margin: 0 0 1em 0;
     text-align: center;
   }
@@ -93,7 +112,7 @@ h1 {
     &.name {
     }
     &.price {
-      width: 6em;
+      width: 7em;
       text-align: right
     }
     &.remove-button {
@@ -101,11 +120,11 @@ h1 {
       text-align: center;
     }
     &.quantity {
-      width: 7em;
+      width: 6em;
       text-align: center;
     }
     &.amount {
-      width: 7em;
+      width: 5.5em;
       text-align: right;
     }
   }
@@ -169,8 +188,9 @@ table#orders {
 }
 
 footer {
-  margin: 3rem 0;
+  margin: 5rem 0 3rem 0;
   text-align: center;
+  font-size: 0.95em;
 }
 
 #clearance {
@@ -181,5 +201,11 @@ footer {
 }
 
 .btn-super-lg {
-  font-size: 1.5em;
+  font-size: 1.3em;
+  padding-right: 2em;
+  padding-left: 2em;
+}
+
+.btn-lg {
+  font-size: $base-font-size;
 }

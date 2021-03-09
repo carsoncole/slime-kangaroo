@@ -1,25 +1,36 @@
+
 #cart
-  %h1= fa_icon "shopping-cart"
+  .cart-icon= fa_icon "shopping-cart"
   - if @order&.order_items&.any?
     .row
       .col-md-12
+
         %table.table
           %thead
             %th
             %th.price Price
-            %th.quantity Qty
+            %th.quantity Quantity
             %th.amount Total
             %th
-          - @order.order_items.each do |item|
-            %tr
-              %td.name
-                = link_to item.product.name, product_path(item.product_id)
-                = "#{item.product.size_oz} oz" if item.product.size_oz.present?
-              %td.price= number_to_currency(item.unit_price)
-              %td.quantity= item.quantity
-              %td.amount= number_to_currency(item.amount)
-              %td.remove-button
-                = button_to 'Remove', remove_from_cart_path(product_id: item.product_id), class: 'btn btn-info btn-sm'
+          - @order.order_items.order(item_type: :desc).each do |item|
+            - if item.product
+              %tr
+                %td.name
+                  = link_to item.product.name, product_path(item.product_id)
+                  = "#{item.product.size_oz} oz" if item.product.size_oz.present?
+                %td.price= number_to_currency(item.unit_price)
+                %td.quantity= item.quantity
+                %td.amount= number_to_currency(item.amount)
+                %td.remove-button
+                  = button_to 'Remove', remove_from_cart_path(product_id: item.product_id), class: 'btn btn-secondary btn-sm'
+            - else
+              %tr
+                %td.name= item.item_type
+                %td
+                %td
+                %td.amount= item.amount
+                %td
+
 
           %tr
             %td Total
@@ -33,7 +44,6 @@
 
   - else
     .row
-      .col-md-3
-      .col-md-6
+      .col-md-12
         %strong
           .text-center Cart is empty

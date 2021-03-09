@@ -50,7 +50,9 @@ class OrdersController < ApplicationController
     if order = Order.find_by(id: cookies[:order_id])
       order.order_items.where(product_id: params[:product_id]).destroy_all
     end
-    order.destroy if order.order_items.empty?
+    if order.order_items.product.empty?
+      order.destroy
+    end
     redirect_to cart_path
   end
 

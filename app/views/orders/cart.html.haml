@@ -1,12 +1,20 @@
-= render 'cart'
-
-- if @order&.order_items&.any?
-  .row
-    .col-md-3
-    .col-md-6
-      .text-center
-        = button_to "CHECK OUT", shipping_path, method: :get,class: 'btn btn-lg btn-primary'
+.row
+  .col-md-2
+  .col-md-8
+    = render 'checkout_header'
 
 .row
-  .col-md-12
-    .text-center= link_to "Continue Shopping", root_path
+  .col-md-2
+  .col-md-8
+    = render 'cart'
+
+.row
+  .col-md-2
+  .col-md-8
+    - if @order&.order_items&.any?
+      .row
+        .col-md-3
+        .col-md-6
+          .text-center
+            = button_to "Checkout", shipping_path, method: :get,class: 'btn btn-lg btn-primary'
+

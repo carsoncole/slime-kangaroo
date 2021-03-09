@@ -1,20 +1,8 @@
-#checkout
-  = render 'orders/checkout_header'
+.row
+  .col-md-12
+    %h1 Shipping
 
-  - if signed_in?
-    .row
-      .col-md-12
-        %h2 Shipping
+.row
+  .col-md-12
+    = render 'shipping'
 
-        = render 'shipping'
-
-
-
-    .row
-      .col-md-12
-        .text-center
-
-  - else
-    .row
-      .col-md-12
-        Create an account

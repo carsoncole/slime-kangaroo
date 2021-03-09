@@ -1,8 +1,63 @@
+.row
+  .col-md-12
+    %h1 Review
 
-%section
-  .product
-    = image_tag "slime-kangaroo-logo", width: '250px'
-    .description
-      %h3 Slime Kangaroo
-      %h5= number_to_currency @order.amount
-  %button(type="button" id="checkout-button") Checkout
+.row
+  .col-md-12
+    .review-element
+      %h2 Shipping address
+
+      %p
+        = @order.addressee
+        %br
+        = @order.street_address_1
+        - if @order.street_address_2.present?
+          = @order.street_address_2
+          %br
+        = @order.city
+        = @order.state
+        = @order.zip_code
+
+.row
+  .col-md-12
+    .review-element
+      %h2 Order Summary
+
+
+      %table.table.table-sm#order-table
+        %thead
+          %th
+          %th.price Price
+          %th.quantity.text-center Qty
+          %th.amount.text-right Total
+        - @order.order_items.order(item_type: :desc).each do |item|
+          - if item.product
+            %tr
+              %td.name
+                = link_to item.product.name, product_path(item.product_id)
+                = "#{item.product.size_oz} oz" if item.product.size_oz.present?
+              %td.price= number_to_currency(item.unit_price)
+              %td.quantity.text-center= item.quantity
+              %td.amount.text-right= number_to_currency(item.amount)
+          - else
+            %tr
+              %td.name= item.item_type
+              %td
+              %td
+              %td.amount.text-right= item.amount
+
+
+        %tr
+          %td Total
+          %td
+          %td
+          %td.amount.text-right
+            = number_to_currency(@order.amount)
+
+.row
+  .col-md-12
+    .review-element
+
+      %section
+        .text-center
+          %button(type="button" id="checkout-button" class="btn btn-super-lg btn-primary") Payment
