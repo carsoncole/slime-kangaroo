@@ -20,4 +20,12 @@ class OrderTest < ActiveSupport::TestCase
       order.destroy
     end
   end
+
+  test "status required presence" do
+    order = create(:order)
+    assert order.status
+
+    order.status = nil
+    assert order.valid?
+  end
 end

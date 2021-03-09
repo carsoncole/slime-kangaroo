@@ -4,9 +4,11 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   belongs_to :user, optional: true
 
+  before_validation :update_status!
   after_create :add_shipping_and_taxes
   before_destroy :confirm_shopping
-  before_save :update_status!
+
+  validates :status, presence: true
 
   def confirm_shopping
     unless shopping?
