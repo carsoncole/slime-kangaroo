@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_08_201236) do
+ActiveRecord::Schema.define(version: 2021_03_09_202341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 2021_03_08_201236) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "admin_promotions", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.integer "discount_percentage"
+    t.datetime "start"
+    t.datetime "end"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "messages", force: :cascade do |t|
     t.string "email"
     t.text "content"
@@ -70,10 +80,11 @@ ActiveRecord::Schema.define(version: 2021_03_08_201236) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "item_type"
+    t.string "description"
   end
 
   create_table "orders", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.decimal "amount", precision: 5, scale: 2, default: "0.0", null: false
+    t.decimal "net_amount", precision: 5, scale: 2, default: "0.0", null: false
     t.datetime "charged_at"
     t.datetime "shipped_at"
     t.datetime "cancelled_at"
@@ -90,6 +101,7 @@ ActiveRecord::Schema.define(version: 2021_03_08_201236) do
     t.string "addressee"
     t.string "status"
     t.string "stripe_charge_id"
+    t.decimal "gross_amount", precision: 5, scale: 2, default: "0.0", null: false
   end
 
   create_table "products", force: :cascade do |t|

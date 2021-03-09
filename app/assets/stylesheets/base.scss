@@ -67,23 +67,13 @@ table th,td {
   }
 }
 
-#checkout-header {
-  a.continue-shopping-link {
-    color: #bcbcbc;
-    &:hover {
-      color: #111;
-      text-decoration: none;
-    }
-  }
-  margin: 0 0 1.77rem 0;
-  border-bottom: 2px solid #efefef;
-  padding-bottom: 1.77rem;
-}
-
 #checkout {
   margin: 2em 0;
+  .review-image {
+    margin: 0 auto 1em auto;
+  }
   h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     text-transform: uppercase;
     text-align: center;
     margin: 0 0 2.5em 0;
@@ -137,7 +127,7 @@ table#orders {
       width: 12em;
     }
     &.status {
-      width: 7em;
+      width: 8em;
       text-align: center;
     }
     &.amount {
@@ -209,3 +199,8 @@ footer {
 .btn-lg {
   font-size: $base-font-size;
 }
+
+#flash {
+  margin: 2em 0;
+}
+

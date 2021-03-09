@@ -11,6 +11,6 @@ class StripeCharge
   private
 
   def charge
-    @charge ||= Order.where(amount: @stripe_charge.amount / 100.0).first! rescue nil
+    @charge ||= Order.where(amount: @stripe_charge.net_amount / 100.0).first! rescue nil
   end
 end

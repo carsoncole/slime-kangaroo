@@ -1,11 +1,18 @@
 .row
   .col-md-12
+    .text-center
+      .review-image= image_tag "slime-kangaroo-logo", width: '100px' 
+
+.row
+  .col-md-12
     %h1 Review
 
 .row
   .col-md-12
     .review-element
       %h2 Shipping address
+
+      %p= link_to "edit", shipping_path
 
       %p
         = @order.addressee
@@ -23,6 +30,11 @@
     .review-element
       %h2 Order Summary
 
+      %p
+        = link_to "continue shopping", root_path
+        \|
+        = link_to "edit", cart_path
+
 
       %table.table.table-sm#order-table
         %thead
@@ -30,29 +42,39 @@
           %th.price Price
           %th.quantity.text-center Qty
           %th.amount.text-right Total
-        - @order.order_items.order(item_type: :desc).each do |item|
-          - if item.product
-            %tr
-              %td.name
-                = link_to item.product.name, product_path(item.product_id)
-                = "#{item.product.size_oz} oz" if item.product.size_oz.present?
-              %td.price= number_to_currency(item.unit_price)
-              %td.quantity.text-center= item.quantity
-              %td.amount.text-right= number_to_currency(item.amount)
-          - else
-            %tr
-              %td.name= item.item_type
-              %td
-              %td
-              %td.amount.text-right= item.amount
-
+        - @order.order_items.product.each do |item|
+          %tr
+            %td.name
+              = link_to item.product.name, product_path(item.product_id)
+              = "#{item.product.size_oz} oz" if item.product.size_oz.present?
+            %td.price= number_to_currency(item.unit_price)
+            %td.quantity.text-center= item.quantity
+            %td.amount.text-right= number_to_currency(item.amount)
+        - @order.order_items.non_product.order(item_type: :asc).each do |item|
+          %tr
+            %td.name= item.tax_shipping_promo_description
+            %td
+            %td
+            %td.amount.text-right
+              - if item.shipping? && item.amount == 0
+                FREE
+              - else
+                = number_to_currency(item.amount)
 
         %tr
           %td Total
           %td
           %td
           %td.amount.text-right
-            = number_to_currency(@order.amount)
+            = number_to_currency(@order.net_amount)
+
+.row
+  .col-md-12
+    .form-inline
+      = form_for @order do |f|
+        .form-group.mb-2
+          = f.text_field :promo_code, class: 'form-control'
+        = f.submit "Add Promo Code", class: 'btn btn-sm btn-secondary mb-2'
 
 .row
   .col-md-12

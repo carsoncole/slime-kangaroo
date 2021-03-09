@@ -11,7 +11,7 @@
           %td= @order.id
         %tr
           %th Amount
-          %td= number_to_currency @order.amount
+          %td= number_to_currency @order.net_amount
         %tr
           %th Charged at
           %td= @order.charged_at
@@ -46,9 +46,16 @@
           %th.amount Total
         - @order.order_items.each do |item|
           %tr
-            %td= item.product.name
             %td
-              - if item.product.size_oz
+              - if item.product?
+                = item&.product&.name
+              - else
+                = item.item_type
+                - if item.promo?
+                  = surround("(", ")") do
+                    = item.description
+            %td
+              - if item&.product&.size_oz
                 = item.product.size_oz
                 oz.
             %td= item.quantity

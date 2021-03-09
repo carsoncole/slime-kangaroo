@@ -7,7 +7,7 @@ class ChargesController < ApplicationController
       payment_method_types: ['card'],
       line_items: [{
         price_data: {
-          unit_amount: (@cart_order.amount*100).to_i,
+          unit_amount: (@cart_order.net_amount*100).to_i,
           currency: 'usd',
           product_data: {
             name: 'Slime Kangaroo'

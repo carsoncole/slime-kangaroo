@@ -18,7 +18,7 @@
         %td.datetime= link_to order.created_at, admin_order_path(order)
         %td.uuid= order.id_short
         %td.items= order.order_items.count
-        %td.amount= order.amount
+        %td.amount= number_to_currency(order.net_amount)
         %td.status= order.status
         %td.email= order.user.email
         %td.actions

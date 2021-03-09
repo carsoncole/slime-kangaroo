@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Code:
+  = @admin_promotion.code
+%p
+  %b Name:
+  = @admin_promotion.name
+%p
+  %b Discount percentage:
+  = @admin_promotion.discount_percentage
+%p
+  %b Start:
+  = @admin_promotion.start
+%p
+  %b End:
+  = @admin_promotion.end
+
+= link_to 'Edit', edit_admin_promotion_path(@admin_promotion)
+\|
+= link_to 'Back', admin_promotions_path

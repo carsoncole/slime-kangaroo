@@ -1,0 +1,25 @@
+= form_for @admin_promotion do |f|
+  - if @admin_promotion.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@admin_promotion.errors.count, "error")} prohibited this admin_promotion from being saved:"
+      %ul
+        - @admin_promotion.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :code
+    = f.text_field :code
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :discount_percentage
+    = f.number_field :discount_percentage
+  .field
+    = f.label :start
+    = f.datetime_select :start
+  .field
+    = f.label :end
+    = f.datetime_select :end
+  .actions
+    = f.submit 'Save'

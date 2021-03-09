@@ -1,11 +1,12 @@
 class Order < ApplicationRecord
+  attr_accessor :promo_code
+
   self.implicit_order_column = "created_at"
 
   has_many :order_items, dependent: :destroy
   belongs_to :user, optional: true
 
   before_validation :update_status!
-  after_create :add_shipping_and_taxes
   before_destroy :confirm_shopping
 
   validates :status, presence: true
@@ -30,8 +31,20 @@ class Order < ApplicationRecord
     end
   end
 
+  def apply_promo_code(code)
+    promo_item = order_items.find_or_create_by(item_type: 'Promo').update(amount: -20.0, description: code)
+  end
+
   def shopping?
     status == 'Shopping'
+  end
+
+  def shipping
+    order_items.where(item_type: 'Shipping').last
+  end
+
+  def taxes
+    order_items.where(item_type: 'Taxes').last
   end
 
   def shipping_info_provided?
@@ -48,12 +61,5 @@ class Order < ApplicationRecord
 
   def id_short
     id.slice(0,8)
-  end
-
-  private
-
-  def add_shipping_and_taxes
-    order_items.create(item_type: 'Shipping', amount: 0)
-    order_items.create(item_type: 'Taxes', amount: 0)
   end
 end

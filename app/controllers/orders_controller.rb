@@ -3,7 +3,10 @@ class OrdersController < ApplicationController
   before_action :set_order, only: %i[ show edit update destroy ]
 
   def update
-    if @order.update(order_params)
+    if params[:order][:promo_code].present?
+      @order.apply_promo_code(params[:order][:promo_code])
+      redirect_to review_path, notice: 'Promo code has been applied.'
+    elsif @order.update(order_params)
       redirect_to review_path
     else
       render :edit, status: :unprocessable_entity
@@ -41,7 +44,7 @@ class OrdersController < ApplicationController
       existing_item.update(quantity: existing_item.quantity += 1)
     else
       product = Product.find_by(id: params[:product_id])
-      order.order_items.create(product_id: params[:product_id], quantity: 1, unit_price: product.price) if product
+      order.order_items.create(product_id: params[:product_id], quantity: 1, unit_price: product.price, item_type: 'Product') if product
     end
     redirect_to cart_path
   end
@@ -75,6 +78,12 @@ class OrdersController < ApplicationController
 
   def review
     @order = Order.find_by(id: cookies[:order_id])
+
+    shipping_item = @order.order_items.find_or_create_by(item_type: 'Shipping')
+    shipping_item.update(amount: Shipping.new.amount)
+    tax_item = @order.order_items.find_or_create_by(item_type: 'Taxes')
+    tax_item.update(amount: Tax.new(@order).amount)
+
     render layout: 'checkout'
   end
 
@@ -86,6 +95,6 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:date, :amount, :shipped_at, :cancelled_at, :refunded_at, :street_address_1, :street_address_2, :city, :state, :zip_code, :country, :addressee)
+      params.require(:order).permit(:date, :amount, :shipped_at, :cancelled_at, :refunded_at, :street_address_1, :street_address_2, :city, :state, :zip_code, :country, :addressee, :promo_code)
     end
 end
