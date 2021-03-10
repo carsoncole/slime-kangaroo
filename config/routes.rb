@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   get 'checkout' => 'orders#shipping', as: 'checkout'
   get 'review' => 'orders#review', as: 'review'
 
-  resources :charges, only: %i[ new create ]
+  resources :charges, only: %i[ create ]
   post 'stripe-webhook' => "charges#stripe_webhook"
   get 'charges/success' => 'charges#success', as: 'success'
   get 'charges/cancel' => 'charges#cancel', as: 'cancel'
