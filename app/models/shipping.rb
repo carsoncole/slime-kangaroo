@@ -8,7 +8,7 @@ class Shipping
   end
 
   def amount
-    if order.zip_code == '98110'
+    if order.zip_code == '98110' && order.state == 'WA'
       0
     else
       case order.weight_oz
