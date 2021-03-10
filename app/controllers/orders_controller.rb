@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
 
   def update
     if params[:order][:promo_code].present?
-      if @order.apply_promo_code(params[:order][:promo_code])
+      if @order.apply_promo_code!(params[:order][:promo_code])
         message = 'Promo code has been applied.'
       else
         message = 'Promo code has expired or does not exist.'
@@ -65,25 +65,32 @@ class OrdersController < ApplicationController
 
   def shipping
     @order = Order.find_by(id: cookies[:order_id])
-    if signed_in? && @order && @order.user_id.nil?
-      @order.update(user: current_user)
-    elsif signed_in? && @order && @order.user != current_user
-      cookies.delete(:order_id)
-    end
+    if @order
+      if signed_in? && @order.user_id.nil?
+        @order.update(user: current_user)
+      elsif signed_in? && @order.user != current_user
+        cookies.delete(:order_id)
+      end
 
-    @order.addressee = @order.user.name unless @order.addressee
-    @order.street_address_1 = @order.user.street_address_1 unless @order.street_address_1
-    @order.street_address_2 = @order.user.street_address_2 unless @order.street_address_2
-    @order.city = @order.user.city unless @order.city
-    @order.state = @order.user.state unless @order.state
-    @order.zip_code = @order.user.zip_code unless @order.zip_code
+      @order.addressee = @order.user.name unless @order.addressee
+      @order.street_address_1 = @order.user.street_address_1 unless @order.street_address_1
+      @order.street_address_2 = @order.user.street_address_2 unless @order.street_address_2
+      @order.city = @order.user.city unless @order.city
+      @order.state = @order.user.state unless @order.state
+      @order.zip_code = @order.user.zip_code unless @order.zip_code
+    else
+      redirect_to root_path and return
+    end
     render layout: 'checkout'
   end
 
   def review
     @order = Order.find_by(id: cookies[:order_id])
+    @order.apply_shipping!
     if existing_promo_code = @order.order_items.promo&.first&.promo_code
+      @order.apply_promo_code!(existing_promo_code)
     end
+    @order.apply_taxes!
     render layout: 'checkout'
   end
 

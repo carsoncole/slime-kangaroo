@@ -6,7 +6,7 @@
     .row
       .col-md-12
 
-        %table.table
+        %table.table#cart-table
           %thead
             %th
             %th.price Price
@@ -15,7 +15,7 @@
             %th
           - @order.order_items.product.order(item_type: :desc).each do |item|
             - if item.product
-              %tr
+              %tr{ id:  "product#{item.product_id.to_s}" }
                 %td.name
                   - if item.product.images.attached?
                     - if item.product.images.first.representable?
@@ -27,7 +27,7 @@
                 %td.quantity= item.quantity
                 %td.amount= number_to_currency(item.amount)
                 %td.remove-button
-                  = button_to 'Remove', remove_from_cart_path(product_id: item.product_id), class: 'btn btn-secondary btn-sm'
+                  = button_to 'Remove', remove_from_cart_path(product_id: item.product_id), class: 'btn btn-secondary btn-sm', id: "remove-button-#{item.product_id.to_s}"
             - else
               %tr
                 %td.name= item.item_type
@@ -41,7 +41,7 @@
             %td Total
             %td
             %td
-            %td.amount
+            %td.amount#gross-amount
               = number_to_currency(@order.gross_amount)
             %td
 

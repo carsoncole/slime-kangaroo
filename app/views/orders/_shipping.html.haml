@@ -16,7 +16,7 @@
     .col-md-6
       .form-group
         = f.label :state
-        = f.select :state, options_for_select(us_states), {}, class: 'form-control'
+        = f.select :state, options_for_select(us_states), {}, class: 'form-control', id: 'state-dropdown'
     .col-md-6
       .form-group
         = f.label :zip_code

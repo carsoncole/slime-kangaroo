@@ -19,8 +19,13 @@
       .form-group
         = f.label :discount_percentage
         %small.text-muted (1-100)
-        = f.number_field :discount_percentage, class: 'form-control', placeholder: '10'
-      
+        = f.number_field :discount_percentage, class: 'form-control'
+
+      .form-group
+        = f.label :discount_dollars
+        %small.text-muted (any dollar amount)
+        = f.number_field :discount_dollars, class: 'form-control'
+
       .form-group
         = f.label :has_free_shipping
         = f.check_box :has_free_shipping, class: 'form-control'

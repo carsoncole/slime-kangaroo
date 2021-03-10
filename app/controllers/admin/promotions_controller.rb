@@ -64,6 +64,6 @@ class Admin::PromotionsController < Admin::AdminController
 
     # Only allow a list of trusted parameters through.
     def admin_promotion_params
-      params.require(:admin_promotion).permit(:code, :name, :has_free_shipping, :discount_percentage, :start, :end)
+      params.require(:admin_promotion).permit(:code, :name, :has_free_shipping, :discount_percentage, :discount_dollars, :start, :end)
     end
 end

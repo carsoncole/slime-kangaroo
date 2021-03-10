@@ -6,14 +6,13 @@ class OrderItem < ApplicationRecord
 
   before_save :update_amount!, if: Proc.new {|oi| oi.product? }
   after_save :update_order_gross_and_net_amount!
-  after_save :update_shipping!, if: Proc.new {|oi| oi.product? }
-  after_save :update_taxes!, if: Proc.new {|oi| oi.product? }
   after_destroy :update_order_gross_and_net_amount!
 
   scope :product, -> { where(item_type: 'Product') }
   scope :non_product, -> { where.not(item_type: 'Product') }
   scope :promo, -> { where(item_type: 'Promo') }
   scope :taxes, -> { where(item_type: 'Taxes') }
+  scope :shipping, -> { where(item_type: 'Shipping') }
 
   def product?
     item_type == 'Product'
@@ -36,21 +35,11 @@ class OrderItem < ApplicationRecord
     when 'Promo'
       promo = Admin::Promotion.find_by(code: promo_code)
       "Promo: #{promo_code}"
+    when 'Shipping'
+      'Shipping (USPS)'
     else
       item_type
     end
-  end
-
-  private
-
-  def update_taxes!
-    tax_item = order.order_items.find_or_create_by(item_type: 'Taxes')
-    tax_item.update(amount: Tax.new(order).amount)
-  end
-
-  def update_shipping!
-    shipping_item = order.order_items.find_or_create_by(item_type: 'Shipping')
-    shipping_item.update(amount: Shipping.new.amount)
   end
 
   def update_amount!

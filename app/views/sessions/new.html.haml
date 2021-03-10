@@ -1,7 +1,7 @@
 .row
   .col-md-3
   .col-md-6
-    #clearance.sign-in
+    #sign-in
       %h2 Login
 
       = render partial: '/sessions/form'
@@ -10,7 +10,7 @@
 .row
   .col-md-3
   .col-md-6
-    #clearance.sign-in
+    #sign-up
       %h2 Register
       - @user = User.new
       = render partial: '/users/form'
