@@ -10,6 +10,7 @@ class Order < ApplicationRecord
   before_destroy :confirm_shopping
 
   validates :status, presence: true
+  validates :zip_code, length: { maximum: 5 }
 
   scope :fulfillment, -> { where(status: 'Fulfillment') }
 

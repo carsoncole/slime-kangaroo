@@ -13,7 +13,7 @@ class OrdersController < ApplicationController
     elsif @order.update(order_params)
       redirect_to review_path
     else
-      render :edit, status: :unprocessable_entity
+      render :shipping, status: :unprocessable_entity, layout: 'checkout'
     end
   end
 

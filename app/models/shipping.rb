@@ -8,11 +8,15 @@ class Shipping
   end
 
   def amount
-    case order.weight_oz
-    when 0...9
-      6.75
-    when 9..100
-      9.50
+    if order.zip_code == '98110'
+      0
+    else
+      case order.weight_oz
+      when 0...9
+        6.75
+      when 9..100
+        9.50
+      end
     end
   end
 end

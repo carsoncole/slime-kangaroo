@@ -23,8 +23,11 @@
               - @related_products.each do |p|
                 - if @product == p
                   = p.size_oz
+                  oz.
                 - else
-                  = link_to p.size_oz, product_path(p)
+                  = link_to product_path(p) do
+                    = p.size_oz
+                    oz.
                 - unless p == @related_products.last
                   \|
 
