@@ -1,4 +1,4 @@
-class Admin::OrdersController < ApplicationController
+class Admin::OrdersController < Admin::AdminController
   before_action :require_login
   before_action :set_order, only: %i[ show edit update destroy ]
 

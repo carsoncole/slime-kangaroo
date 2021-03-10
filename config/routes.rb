@@ -1,12 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :admin do
-    resources :promotions
-  end
-  resources :promotions
-  get 'charges/new'
-  get 'charges/create'
-  get 'checkout/new'
   resources :messages
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
@@ -46,7 +39,7 @@ Rails.application.routes.draw do
 
   namespace 'admin' do
     resources :products, except: :show
-    resources :settings, :users
+    resources :settings, :users, :promotions
     resources :orders, only: %i[ index update show destroy ]
   end
 end

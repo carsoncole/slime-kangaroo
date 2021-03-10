@@ -4,8 +4,12 @@ class OrdersController < ApplicationController
 
   def update
     if params[:order][:promo_code].present?
-      @order.apply_promo_code(params[:order][:promo_code])
-      redirect_to review_path, notice: 'Promo code has been applied.'
+      if @order.apply_promo_code(params[:order][:promo_code])
+        message = 'Promo code has been applied.'
+      else
+        message = 'Promo code has expired or does not exist.'
+      end
+      redirect_to review_path, notice: message
     elsif @order.update(order_params)
       redirect_to review_path
     else
@@ -78,12 +82,8 @@ class OrdersController < ApplicationController
 
   def review
     @order = Order.find_by(id: cookies[:order_id])
-
-    shipping_item = @order.order_items.find_or_create_by(item_type: 'Shipping')
-    shipping_item.update(amount: Shipping.new.amount)
-    tax_item = @order.order_items.find_or_create_by(item_type: 'Taxes')
-    tax_item.update(amount: Tax.new(@order).amount)
-
+    if existing_promo_code = @order.order_items.promo&.first&.promo_code
+    end
     render layout: 'checkout'
   end
 

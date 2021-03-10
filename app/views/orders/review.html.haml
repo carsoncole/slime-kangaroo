@@ -5,8 +5,11 @@
 
 .row
   .col-md-12
-    %h1 Review
+    %h1 Review Order
+    .continue-shopping-link= link_to "continue shopping", root_path
 
+%br
+%br
 .row
   .col-md-12
     .review-element
@@ -31,12 +34,10 @@
       %h2 Order Summary
 
       %p
-        = link_to "continue shopping", root_path
-        \|
         = link_to "edit", cart_path
 
 
-      %table.table.table-sm#order-table
+      %table.table.table-sm#cart
         %thead
           %th
           %th.price Price

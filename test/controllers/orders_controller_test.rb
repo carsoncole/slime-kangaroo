@@ -9,7 +9,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
   test "should add an item to cart, create order, order item" do
     product = create(:product)
     assert_difference('Order.count') do
-      assert_difference('OrderItem.count', 1) do
+      assert_difference('OrderItem.count', 3) do
         post add_to_cart_path, params: { product_id: product.id }
       end
     end
@@ -28,7 +28,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
       post remove_from_cart_path, params: { product_id: product.id }
     end
 
-    assert_difference('OrderItem.count', -1) do
+    assert_difference('OrderItem.count', -3) do
       post remove_from_cart_path, params: { product_id: product_2.id }
     end
 
@@ -49,7 +49,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     assert_equal 1, Order.count
 
     assert_difference('Order.count', -1) do
-      assert_difference('OrderItem.count', -1) do
+      assert_difference('OrderItem.count', -3) do
         post remove_from_cart_path, params: { product_id: product_2.id }
       end
     end

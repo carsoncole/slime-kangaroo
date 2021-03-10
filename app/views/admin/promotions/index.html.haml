@@ -1,11 +1,13 @@
-%h1 Listing admin_promotions
+%h1 Promotions
 
-%table
+%table.table
   %thead
     %tr
+      %th
       %th Code
       %th Name
-      %th Discount percentage
+      %th Discount
+      %th Free shipping
       %th Start
       %th End
       %th
@@ -15,9 +17,17 @@
   %tbody
     - @admin_promotions.each do |admin_promotion|
       %tr
+        %td
+          - if admin_promotion.active?
+            .badge.badge-success Active
+          - elsif admin_promotion.expired?
+            .badge.badge-danger Expired
         %td= admin_promotion.code
         %td= admin_promotion.name
-        %td= admin_promotion.discount_percentage
+        %td= number_to_percentage(admin_promotion.discount_percentage, precision: 2)
+        %td
+          - unless admin_promotion.has_free_shipping?
+            = fa_icon 'check'
         %td= admin_promotion.start
         %td= admin_promotion.end
         %td= link_to 'Show', admin_promotion

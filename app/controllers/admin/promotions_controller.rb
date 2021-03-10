@@ -1,4 +1,4 @@
-class Admin::PromotionsController < ApplicationController
+class Admin::PromotionsController < Admin::AdminController
   before_action :set_admin_promotion, only: %i[ show edit update destroy ]
 
   # GET /admin/promotions or /admin/promotions.json
@@ -64,6 +64,6 @@ class Admin::PromotionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def admin_promotion_params
-      params.require(:admin_promotion).permit(:code, :name, :discount_percentage, :start, :end)
+      params.require(:admin_promotion).permit(:code, :name, :has_free_shipping, :discount_percentage, :start, :end)
     end
 end

@@ -11,6 +11,8 @@ class Order < ApplicationRecord
 
   validates :status, presence: true
 
+  scope :fulfillment, -> { where(status: 'Fulfillment') }
+
   def confirm_shopping
     unless shopping?
       throw(:abort)
@@ -32,7 +34,16 @@ class Order < ApplicationRecord
   end
 
   def apply_promo_code(code)
-    promo_item = order_items.find_or_create_by(item_type: 'Promo').update(amount: -20.0, description: code)
+    order_items.promo.destroy_all
+    promo = Admin::Promotion.active.find_by(code: code)
+    if promo
+      puts "Promo "*20
+      order_items.create(item_type: 'Promo', amount: -20.0, promo_code: code)
+      true
+    else
+      puts "No " * 20
+      false
+    end
   end
 
   def shopping?

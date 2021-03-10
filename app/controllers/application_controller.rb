@@ -1,4 +1,3 @@
-# FIXME Users can access all controllers/actions which should be restricted
 class ApplicationController < ActionController::Base
   include Clearance::Controller
   before_action :set_cart_order

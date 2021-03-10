@@ -6,8 +6,10 @@ class CreateAdminPromotions < ActiveRecord::Migration[6.1]
       t.integer :discount_percentage
       t.datetime :start
       t.datetime :end
+      t.boolean :has_free_shipping, default: false
 
       t.timestamps
     end
   end
 end
+q
