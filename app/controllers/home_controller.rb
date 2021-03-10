@@ -1,4 +1,3 @@
-#FIXME Responsive nav menu not working
 class HomeController < ApplicationController
   def index
     @products = Product.master

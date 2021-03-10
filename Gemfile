@@ -65,3 +65,6 @@ gem 'font-awesome-rails'
 gem "aws-sdk-s3", require: false
 gem 'image_processing', '~> 1.2'
 gem 'stripe'
+
+# Bootstrap installed using the instructions found here:
+# https://dev.to/yarotheslav/how-to-install-bootstrap-in-rails-6-with-yarn-and-webpacker-3noi

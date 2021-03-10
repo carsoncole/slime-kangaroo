@@ -65,14 +65,14 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
 
   test "checkout and register as a user and assign user to order" do
     post add_to_cart_path, params: { product: create(:product)}
-    get checkout_url
+    get shipping_url
     assert_redirected_to sign_in_url
     assert_difference('User.count') do
       post users_path, params: { user: { email: Faker::Internet.email, password: 'password' } }
     end
-    assert_redirected_to checkout_url
-    # FIXME Requesting checkout_url seems duplicative here but is required
-    get checkout_url
+    assert_redirected_to shipping_url
+    # OPTIMIZE Requesting checkout_url seems duplicative here but is required
+    get shipping_url
     assert_equal User.last, Order.last.reload.user
 
     post orders_path, params: { order: { addressee: Faker::Name.name, street_address_1: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, zip_code: Faker::Address.zip_code } }
