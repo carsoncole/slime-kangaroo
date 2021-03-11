@@ -12,6 +12,27 @@ class OrdersController < ApplicationController
       end
       redirect_to review_path, notice: message
     elsif @order.update(order_params)
+      changes = @order.previous_changes
+      begin
+        if changes.has_key?('street_address_1') ||
+          changes.has_key?('zip_code') ||
+          changes.has_key?('state') ||
+          changes.has_key?('city')
+
+          current_user.update(street_address_1: order_params[:street_address_1],
+            city: order_params[:city],
+            state: order_params[:state],
+            zip_code: order_params[:zip_code])
+        end
+        if changes.has_key?('addressee')
+          first_name = order_params[:addressee].split[0]
+          last_name = order_params[:addressee].split[1]
+          current_user.update(first_name: first_name, last_name: last_name)
+        end
+      rescue => exception
+        Bugsnag.notify(exception) unless Rails.env.development?
+      end
+
       if @order.shipping_info_provided?
         redirect_to review_path
       else
