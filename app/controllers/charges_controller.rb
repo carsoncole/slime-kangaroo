@@ -16,8 +16,8 @@ class ChargesController < ApplicationController
         quantity: 1,
       }],
       mode: 'payment',
-      success_url: "http://localhost:3000/charges/success.html?order_id=#{@cart_order.id}",
-      cancel_url: 'http://localhost:3000/charges/cancel.html',
+      success_url: "http://slimekangaroo.com/charges/success.html?order_id=#{@cart_order.id}",
+      cancel_url: 'http://slimekangaroo.com/charges/cancel.html',
     })
 
     render json: { id: session.id }
