@@ -8,6 +8,6 @@
     = form.password_field :password, class: 'form-control', id: 'register-password'
 
   - if @user.persisted?
-    = form.submit "Update", class: 'btn btn-primary'
+    = form.submit "Update", class: 'btn btn-base'
   - else
-    = form.submit "Register", class: 'btn btn-primary'
+    = form.submit "Register", class: 'btn btn-base'

@@ -1,4 +1,6 @@
 $base-font-size: 17px;
+$base-color-primary: #ACBD8A;
+$base-color-secondary: #E9946A;
 
 body {
   font-size: ç;
@@ -97,11 +99,12 @@ table th,td {
     font-weight: 900;
     margin: 0 0 0.5em 0;
   }
-  .btn-super-lg {
-    margin-top: 2em;
-  }
   .review-element {
     margin-bottom: 3.4em;
+  }
+  .order-total {
+    font-weight: 800;
+    color: $base-color-secondary;
   }
 }
 
@@ -211,14 +214,18 @@ footer {
 
 
 
-.btn-super-lg {
-  font-size: 1.3em;
-  padding-right: 2em;
-  padding-left: 2em;
-}
 
 .btn-lg {
   font-size: $base-font-size;
+}
+
+.btn.btn-base {
+  background-color: $base-color-secondary !important;
+  border-color: $base-color-secondary !important;
+  color: #fff;
+  &:hover {
+    background-color: #efefef !important;
+  }
 }
 
 #flash {

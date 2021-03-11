@@ -11,7 +11,7 @@
       %p
         %b Price:
         = number_to_currency(@product.price) if @product.price.present?
-      = button_to  add_to_cart_path(product_id: @product.id), class: 'btn btn-primary btn-super-lg' do
+      = button_to  add_to_cart_path(product_id: @product.id), class: 'btn btn-base btn-lg' do
         = "Add to Cart"
 
       .row

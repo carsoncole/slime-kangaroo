@@ -63,10 +63,11 @@
                 = number_to_currency(item.amount)
 
         %tr
-          %td Total
+          %td.order-total
+            Order total
           %td
           %td
-          %td.amount.text-right
+          %td.amount.text-right.order-total
             = number_to_currency(@order.net_amount)
 
   .row
@@ -98,4 +99,4 @@
 
       %section
         .text-center
-          %button(type="button" id="checkout-button" class="btn btn-super-lg btn-primary") Payment
+          %button(type="button" id="checkout-button" class="btn btn-lg btn-base") Payment
