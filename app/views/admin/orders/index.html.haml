@@ -19,7 +19,13 @@
         %td.uuid= order.id_short
         %td.items= order.shipment_items_count
         %td.amount= number_to_currency(order.net_amount)
-        %td.status= order.status
+        %td.status
+          - if order.status == 'Shopping'
+            .badge.badge-info= order.status
+          - elsif order.status == 'Fulfillment'
+            .badge.badge-success= order.status
+          - else
+            .badge.badge-secondary= order.status
         %td.email= order.user&.email
         %td.actions
           = link_to admin_order_path(order), method: :delete, data: { confirm: 'Are you sure?' } do
