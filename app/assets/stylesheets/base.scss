@@ -227,12 +227,21 @@ table#orders {
         margin-right: 0;
       }
     }
+    .product-listing {
+      border: 1px solid #efefef;
+      padding: 1rem;
+      &:hover {
+        -webkit-box-shadow: 0px 0px 20px 0px $base-color-primary;
+        -moz-box-shadow: 0px 0px 20px 0px $base-color-primary;
+        box-shadow: 0px 0px 20px 0px $base-color-primary;
+      }
+    }
     a {
       color: #000;
     }
   }
   .card {
-    width: 30%;
+    max-width: 250px;
     .card-body {
       padding-bottom: 0.9em;
     }
