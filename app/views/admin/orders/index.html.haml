@@ -15,9 +15,9 @@
   %tbody
     - @orders.each do |order|
       %tr
-        %td.datetime= link_to order.created_at, admin_order_path(order)
+        %td.datetime= link_to nice_datetime_compact(local_time(order.created_at)), admin_order_path(order)
         %td.uuid= order.id_short
-        %td.items= order.order_items.count
+        %td.items= order.shipment_items_count
         %td.amount= number_to_currency(order.net_amount)
         %td.status= order.status
         %td.email= order.user&.email

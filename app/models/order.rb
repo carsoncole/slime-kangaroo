@@ -76,6 +76,10 @@ class Order < ApplicationRecord
     order_items.where(item_type: 'Shipping').last
   end
 
+  def shipment_items_count
+    order_items.product.count
+  end
+
   def taxes
     order_items.where(item_type: 'Taxes').last
   end

@@ -28,8 +28,8 @@ module ApplicationHelper
     date.strftime('%m-%d-%y %I:%M:%S %p %Z') unless date.nil?
   end
 
-  def local_time
-    in_time_zone("Pacific Time (US & Canada)")
+  def local_time(date)
+    date.in_time_zone("Pacific Time (US & Canada)")
   end
 
 
