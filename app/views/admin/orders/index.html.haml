@@ -20,7 +20,7 @@
         %td.items= order.order_items.count
         %td.amount= number_to_currency(order.net_amount)
         %td.status= order.status
-        %td.email= order.user.email
+        %td.email= order.user&.email
         %td.actions
           = link_to admin_order_path(order), method: :delete, data: { confirm: 'Are you sure?' } do
             = fa_icon 'trash'
