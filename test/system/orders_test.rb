@@ -1,5 +1,6 @@
 require "application_system_test_case"
 
+#TODO Need coupon tests
 #TODO Images should be added to product listings
 class OrdersTest < ApplicationSystemTestCase
   # setup do
