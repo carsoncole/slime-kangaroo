@@ -17,7 +17,7 @@
           %td= @order.charged_at
         %tr
           %th Email
-          %td= @order.user.email
+          %td= @order.user&.email
         %tr
           %th Street address 1
           %td= @order.street_address_1
@@ -58,6 +58,6 @@
               - if item&.product&.size_oz
                 = item.product.size_oz
                 oz.
-            %td= item.quantity
-            %td= number_to_currency(item.unit_price)
-            %td= number_to_currency(item.amount)
+            %td.quantity= item.quantity
+            %td.amount= number_to_currency(item.unit_price)
+            %td.amount= number_to_currency(item.amount)

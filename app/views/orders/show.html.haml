@@ -23,7 +23,7 @@
           %td= @order.charged_at
         %tr
           %th Email
-          %td= @order.user.email
+          %td= @order.user&.email
 
   .row
     .col-md-6

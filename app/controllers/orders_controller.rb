@@ -95,6 +95,7 @@ class OrdersController < ApplicationController
       @order.apply_promo_code!(existing_promo_code)
     end
     @order.apply_taxes!
+    @shipping_item = @order.shipping
     render layout: 'checkout'
   end
 

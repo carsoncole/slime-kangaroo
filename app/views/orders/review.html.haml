@@ -10,9 +10,9 @@
 
 %br
 %br
-.row
-  .col-md-12
-    .review-element
+.review-element
+  .row
+    .col-md-12
       %h2 Shipping address
 
       %p= link_to "edit", shipping_path
@@ -28,10 +28,10 @@
         = @order.state
         = @order.zip_code
 
-.row
-  .col-md-12
-    .review-element
-      %h2 Order Summary
+.review-element
+  .row
+    .col-md-12
+      %h2 Review items and summary
 
       %p
         = link_to "edit", cart_path
@@ -69,13 +69,28 @@
           %td.amount.text-right
             = number_to_currency(@order.net_amount)
 
-.row
-  .col-md-12
-    .form-inline
-      = form_for @order do |f|
-        .form-group.mb-2
-          = f.text_field :promo_code, class: 'form-control'
-        = f.submit "Add Promo Code", class: 'btn btn-sm btn-secondary mb-2'
+  .row
+    .col-md-12
+      .form-inline
+        = form_for @order do |f|
+          .form-group.mb-2
+            = f.text_field :promo_code, class: 'form-control'
+          = f.submit "Add Promo Code", class: 'btn btn-sm btn-secondary mb-2'
+
+.review_element
+  .row
+    .col-md-12
+      %h2 Shipping
+      - if @order.zip_code == '98110'
+        %p Shipping is FREE on Bainbridge Island, WA.
+      - else
+        %p 
+          Shipping is 5-7 days by USPS First Class package delivery. The cost is
+          = succeed(".") do
+            = number_to_currency(@shipping_item.amount)
+
+
+
 
 .row
   .col-md-12
