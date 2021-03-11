@@ -213,11 +213,29 @@ table#orders {
     text-align: center;
     text-transformation: downcase;
   }
-  .product-name {
-    font-weight: 600;
-    font-size: 1.3rem;
-    margin: 1em auto;
-    text-align: center;
+  .product {
+    .product-showcase {
+      margin-top: 1em;
+      font-weight: 500;
+      font-size: 1.15rem;
+      .name {
+        margin-left: 0;
+        text-align: left;
+      }
+      .price {
+        float: right;
+        margin-right: 0;
+      }
+    }
+    a {
+      color: #000;
+    }
+  }
+  .card {
+    width: 30%;
+    .card-body {
+      padding-bottom: 0.9em;
+    }
   }
 }
 
