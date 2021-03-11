@@ -49,10 +49,24 @@ table th,td {
 
 #order {
   h2 {
-   margin-top: 5rem;
-}
+   margin: 5rem 0 2rem 0;
+   font-size: 1.2em;
+   font-weight: 700;
+  }
   table.table#order-items {
-    
+    th, td {
+      &.amount {
+        text-align: right;
+      }
+      &.quantity {
+        text-align: center;
+      }
+    }
+  }
+  table#order-table-details, table#order-table-shipping {
+    td {
+      text-align: right;
+    }
   }
 }
 
@@ -93,6 +107,7 @@ table th,td {
 
 .continue-shopping-link {
   text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 #cart {
@@ -193,6 +208,8 @@ footer {
     margin-bottom: 1.5em;
   }
 }
+
+
 
 .btn-super-lg {
   font-size: 1.3em;

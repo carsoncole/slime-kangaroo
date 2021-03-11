@@ -1,0 +1,81 @@
+#order
+  .row
+    .col-md-6
+      %h1 Order
+
+      %p= link_to 'Back to Account', user_path(current_user)
+
+  .row
+    .col-md-6
+      %h2 Details
+      %table.table.table-sm#order-table-details
+        %tr
+          %th Status
+          %td= @order.status
+        %tr
+          %th ID
+          %td= @order.id
+        %tr
+          %th Amount
+          %td= number_to_currency @order.net_amount
+        %tr
+          %th Charged at
+          %td= @order.charged_at
+        %tr
+          %th Email
+          %td= @order.user.email
+
+  .row
+    .col-md-6
+      %h2 Shipped to
+      %table.table.table-sm#order-table-shipping
+        %tr
+          %th Street address 1
+          %td= @order.street_address_1
+        %tr
+          %th Street address 2
+          %td= @order.street_address_2
+        %tr
+          %th City
+          %td= @order.city
+        %tr
+          %th State
+          %td= @order.state
+        %tr
+          %th Zip code
+          %td= @order.zip_code
+
+  .row
+    .col-md-8
+      %h2 Items
+      %table.table.table-sm#order-items
+        %thead
+          %th Item
+          %th
+          %th.quantity Quantity
+          %th.amount Unit price
+          %th.amount Total
+        %tbody
+          - @order.order_items.each do |item|
+            %tr
+              %td
+                - if item.product?
+                  = item&.product&.name
+                - else
+                  = item.item_type
+                  - if item.promo?
+                    = surround("(", ")") do
+                      = item.description
+              %td
+                - if item&.product&.size_oz
+                  = item.product.size_oz
+                  oz.
+              %td.quantity= item.quantity
+              %td.amount= number_to_currency(item.unit_price)
+              %td.amount= number_to_currency(item.amount)
+          %tr
+            %td Total
+            %td
+            %td
+            %td
+            %td.amount= number_to_currency @order.net_amount

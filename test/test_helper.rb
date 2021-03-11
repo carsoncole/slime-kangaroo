@@ -9,7 +9,16 @@ class ActiveSupport::TestCase
   parallelize(workers: :number_of_processors)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+  # fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  def sign_in(user = nil)
+    @user = user || create(:user)
+    visit sign_in_url
+    within '#sign-in' do
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      click_on 'Sign in'
+    end
+  end
+
 end

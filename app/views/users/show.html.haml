@@ -7,7 +7,7 @@
   .row
     .col-md-8
       %h2 Address
-      = link_to "Edit", edit_user_path(@user)
+
       = @user.street_address_1
       %br
       - if @user.street_address_2.present?
@@ -21,8 +21,15 @@
   .row
     .col-md-8
       %h2 Orders
-      %table.table.table-sm.table-borderless
+      %table.table.table-sm.table-borderless#orders-table
+        %thead
+          %tr
+            %th Date
+            %th Status
+            %th Amount
         - @user.orders.each do |order|
           - next if order.status == 'Shopping'
           %tr
-            %td= order.id_short
+            %td= link_to nice_compact_date(order.charged_at), order_path(order)
+            %td= order.status
+            %td= number_to_currency(order.net_amount)

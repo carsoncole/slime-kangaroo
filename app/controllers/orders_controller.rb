@@ -11,7 +11,11 @@ class OrdersController < ApplicationController
       end
       redirect_to review_path, notice: message
     elsif @order.update(order_params)
-      redirect_to review_path
+      if @order.shipping_info_provided?
+        redirect_to review_path
+      else
+        redirect_to shipping_path, notice: 'Please provide your shipping info.'
+      end
     else
       render :shipping, status: :unprocessable_entity, layout: 'checkout'
     end

@@ -7,4 +7,7 @@
     = form.label :password
     = form.password_field :password, class: 'form-control', id: 'register-password'
 
-  = form.submit "Register", class: 'btn btn-primary'
+  - if @user.persisted?
+    = form.submit "Update", class: 'btn btn-primary'
+  - else
+    = form.submit "Register", class: 'btn btn-primary'

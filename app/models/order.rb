@@ -10,7 +10,9 @@ class Order < ApplicationRecord
   before_destroy :confirm_shopping
 
   validates :status, presence: true
-  validates :zip_code, length: { maximum: 5 }
+  validates :zip_code, format: { with: /\A\d{5}-\d{4}|\A\d{5}\z/,
+                  message: "should be 12345 or 12345-1234",
+                  allow_blank: true }
 
   scope :fulfillment, -> { where(status: 'Fulfillment') }
 

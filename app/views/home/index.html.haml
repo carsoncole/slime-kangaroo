@@ -1,6 +1,6 @@
 #home
   #logo
-    = image_tag 'slime-kangaroo-logo.png', alt: 'Slime Kangaroo Logo', width: '200px', class: 'img-fluid'
+    = image_tag 'slime-kangaroo-logo.png', alt: 'Slime Kangaroo Logo', width: '200px', class: 'img-fluid', id: 'home-page-logo'
 
   - if @products.any?
     .row.product
@@ -12,8 +12,9 @@
                 / # = image_tag product.images.first.representation(resize_to_limit: [400, 400]), class: 'img-fluid rounded'
                 = image_tag product.images.first.variant(:gravity=>"Center", resize: "400x400^", crop: '400x400+0+0'), class: 'img-fluid rounded'
             .product-name= product.name
-  %h1 Coming Soon
 
+  %br
+  %br
   .row
     .col-md-2
     .col-md-8

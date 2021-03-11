@@ -1,3 +1,4 @@
+#TODO Add user profile editing
 class UsersController < Clearance::UsersController
   before_action :require_login, only: %i[ show ]
 

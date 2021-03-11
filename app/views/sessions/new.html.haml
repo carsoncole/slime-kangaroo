@@ -1,17 +1,18 @@
 .row
   .col-md-3
   .col-md-6
-    #sign-in
-      %h2 Login
-
-      = render partial: '/sessions/form'
-
+    #sign-up
+      %h2 New customer?
+      %p Register so you can retrieve your order and we can send you messages.
+      - @user = User.new
+      = render partial: '/users/form'
 
 .row
   .col-md-3
   .col-md-6
-    #sign-up
-      %h2 Register
-      - @user = User.new
-      = render partial: '/users/form'
+    #sign-in
+      %h2 Already a customer? Login
+
+      = render partial: '/sessions/form'
+
 
