@@ -1,7 +1,7 @@
 - if flash.keys.any?
   #flash
     - if flash[:notice]
-      .alert.alert-info
+      .alert.alert-base
         .notification-icon= fa_icon "check-circle"
         = flash[:notice].html_safe
     - if flash[:alert]

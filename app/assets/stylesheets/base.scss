@@ -49,6 +49,35 @@ table th,td {
   }
 }
 
+.alert-base {
+  background-color: $base-color-secondary;
+  color: #fff;
+}
+
+table#messages-table {
+  tr th,td{
+    font-weight: 300;
+    a {
+      color: #000;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  tr.unread {
+    th, td {
+      font-weight: 600 !important;
+      a {
+        color: #000;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+}
+
 #order {
   h2 {
    margin: 5rem 0 2rem 0;

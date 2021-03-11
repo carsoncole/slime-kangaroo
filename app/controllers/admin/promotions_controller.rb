@@ -1,25 +1,20 @@
 class Admin::PromotionsController < Admin::AdminController
   before_action :set_admin_promotion, only: %i[ show edit update destroy ]
 
-  # GET /admin/promotions or /admin/promotions.json
   def index
     @admin_promotions = Admin::Promotion.all
   end
 
-  # GET /admin/promotions/1 or /admin/promotions/1.json
   def show
   end
 
-  # GET /admin/promotions/new
   def new
     @admin_promotion = Admin::Promotion.new
   end
 
-  # GET /admin/promotions/1/edit
   def edit
   end
 
-  # POST /admin/promotions or /admin/promotions.json
   def create
     @admin_promotion = Admin::Promotion.new(admin_promotion_params)
 
@@ -34,7 +29,6 @@ class Admin::PromotionsController < Admin::AdminController
     end
   end
 
-  # PATCH/PUT /admin/promotions/1 or /admin/promotions/1.json
   def update
     respond_to do |format|
       if @admin_promotion.update(admin_promotion_params)
@@ -47,7 +41,6 @@ class Admin::PromotionsController < Admin::AdminController
     end
   end
 
-  # DELETE /admin/promotions/1 or /admin/promotions/1.json
   def destroy
     @admin_promotion.destroy
     respond_to do |format|
@@ -57,12 +50,10 @@ class Admin::PromotionsController < Admin::AdminController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_admin_promotion
       @admin_promotion = Admin::Promotion.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def admin_promotion_params
       params.require(:admin_promotion).permit(:code, :name, :has_free_shipping, :discount_percentage, :discount_dollars, :start, :end)
     end

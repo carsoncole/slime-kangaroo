@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :messages
+  resources :messages, only: %i[ new create ]
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
   resource :session, controller: "clearance/sessions", only: [:create]
 
@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   namespace 'admin' do
     resources :products, except: :show
     resources :settings, :users, :promotions
+    resources :messages, only: %i[ index show destroy ]
     resources :orders, only: %i[ index update show destroy ]
   end
 end

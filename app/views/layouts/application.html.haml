@@ -24,7 +24,14 @@
         %ul.navbar-nav.mr-auto
           - if signed_in? && current_user.is_admin?
             %li.nav-item= link_to "Products", admin_products_path, class: 'nav-link'
-            %li.nav-item= link_to "Orders", admin_orders_path, class: 'nav-link'
+            %li.nav-item
+              = link_to admin_orders_path, class: 'nav-link' do
+                Orders
+                .badge.badge-info= Order.fulfillment.count
+            %li.nav-item
+              = link_to admin_messages_path, class: 'nav-link' do
+                Messages
+                .badge.badge-info= Message.unread.count
             %li.nav-item= link_to "Settings", edit_admin_setting_path(Setting.first_or_create), class: 'nav-link'
         
         %ul.navbar-nav

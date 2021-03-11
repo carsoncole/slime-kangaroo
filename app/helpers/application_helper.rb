@@ -13,7 +13,7 @@ module ApplicationHelper
   end
 
   def nice_brief_date(date)
-    date.strftime('%d-%b') unless date.nil?
+    date.strftime('%b-%d') unless date.nil?
   end
 
   def nice_datetime(date)
