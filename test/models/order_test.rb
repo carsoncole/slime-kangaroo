@@ -51,6 +51,8 @@ class OrderTest < ActiveSupport::TestCase
 
     item = create(:order_item, order: order)
     assert item.amount, order.gross_amount
+    order.apply_taxes!
+    order.apply_shipping!
     assert order.gross_amount * 0.09, order.order_items.taxes.first.amount
     assert order.net_amount, (order.gross_amount * 1.09) + order.shipping.amount
 
