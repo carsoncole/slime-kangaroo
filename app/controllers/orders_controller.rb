@@ -61,6 +61,7 @@ class OrdersController < ApplicationController
       cookies.delete(:order_id)
     elsif signed_in? && current_user.shopping_order
       cookies[:order_id] = current_user.shopping_order.id
+      @order = current_user.shopping_order
     end
   end
 
