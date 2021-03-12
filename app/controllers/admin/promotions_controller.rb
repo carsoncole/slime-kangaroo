@@ -55,6 +55,6 @@ class Admin::PromotionsController < Admin::AdminController
     end
 
     def admin_promotion_params
-      params.require(:admin_promotion).permit(:code, :name, :has_free_shipping, :discount_percentage, :discount_dollars, :start, :end)
+      params.require(:admin_promotion).permit(:code, :name, :has_free_shipping, :discount_percentage, :discount_dollars, :starts_at, :ends_at)
     end
 end

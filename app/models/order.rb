@@ -38,15 +38,16 @@ class Order < ApplicationRecord
 
   def apply_promo_code!(code)
     order_items.promo.destroy_all
-    promo = Admin::Promotion.active.find_by(code: code)
-    if promo
-      if promo.discount_percentage.present? && promo.discount_percentage != 0
-        order_items.create(item_type: 'Promo', amount: gross_amount * -promo.discount_percentage/100.0, promo_code: code)
-      elsif promo.discount_dollars.present? && promo.discount_dollars != 0
-        order_items.create(item_type: 'Promo', amount: -promo.discount_dollars, promo_code: code)
+    existing_promo = Admin::Promotion.active.find_by(code: code)
+    if existing_promo
+      if existing_promo.discount_percentage.present? && existing_promo.discount_percentage != 0
+        order_items.create(item_type: 'Promo', amount: (gross_amount * -existing_promo.discount_percentage/100.0).round(2), promo_code: code)
+      elsif existing_promo.discount_dollars.present? && existing_promo.discount_dollars != 0
+        order_items.create(item_type: 'Promo', amount: -existing_promo.discount_dollars, promo_code: code)
       end
-      if promo.has_free_shipping?
-        order_items.shipping.first.update(amount: 0)
+      if existing_promo.has_free_shipping?
+        shipping.update(amount: 0)
+        order_items.create(item_type: 'Promo', promo_code: code) unless self.reload.promo
       end
       true
     else
@@ -74,6 +75,10 @@ class Order < ApplicationRecord
 
   def shipping
     order_items.where(item_type: 'Shipping').last
+  end
+
+  def promo
+    order_items.where(item_type: 'Promo').last
   end
 
   def shipment_items_count

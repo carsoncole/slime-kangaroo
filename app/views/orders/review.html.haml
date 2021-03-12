@@ -59,7 +59,9 @@
             %td.amount.text-right
               - if item.shipping? && item.amount == 0
                 FREE
-              - else
+              - elsif item.promo? && item.amount != 0
+                = number_to_currency(item.amount)
+              - elsif !item.promo?
                 = number_to_currency(item.amount)
 
         %tr
@@ -75,7 +77,7 @@
       .form-inline
         = form_for @order do |f|
           .form-group.mb-2
-            = f.text_field :promo_code, class: 'form-control'
+            = f.text_field :promo_code, class: 'form-control', id: 'promo-code-input'
           = f.submit "Add Promo Code", class: 'btn btn-sm btn-secondary mb-2'
 
 .review_element

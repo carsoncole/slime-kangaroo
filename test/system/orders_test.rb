@@ -60,8 +60,8 @@ class OrdersTest < ApplicationSystemTestCase
     visit root_url
     click_on product.name
     click_on 'Add to Cart'
-    click_on 'Checkout'
-    assert_text 'Please sign in to continue.'
+    click_on 'Proceed to Checkout'
+    assert_text 'Please register or sign in to continue.'
 
     within '#sign-up' do
       assert_difference('User.count') do

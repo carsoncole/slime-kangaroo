@@ -11,10 +11,10 @@
   = @admin_promotion.discount_percentage
 %p
   %b Start:
-  = @admin_promotion.start
+  = @admin_promotion.starts_at
 %p
   %b End:
-  = @admin_promotion.end
+  = @admin_promotion.ends_at
 
 = link_to 'Edit', edit_admin_promotion_path(@admin_promotion)
 \|

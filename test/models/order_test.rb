@@ -70,4 +70,5 @@ class OrderTest < ActiveSupport::TestCase
     order.update(cancelled_at: Time.now)
     assert_equal 'Cancelled', order.status
   end
+
 end

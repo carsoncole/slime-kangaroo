@@ -32,7 +32,6 @@ module ApplicationHelper
     date.in_time_zone("Pacific Time (US & Canada)")
   end
 
-
   def us_states
       [
         ['Alabama', 'AL'],

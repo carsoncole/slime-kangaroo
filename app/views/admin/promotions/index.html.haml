@@ -6,7 +6,8 @@
       %th
       %th Code
       %th Name
-      %th Discount
+      %th Discount %
+      %th Discount $
       %th Free shipping
       %th Start
       %th End
@@ -25,11 +26,12 @@
         %td= admin_promotion.code
         %td= admin_promotion.name
         %td= number_to_percentage(admin_promotion.discount_percentage, precision: 2)
+        %td= number_to_currency(admin_promotion.discount_dollars) if admin_promotion.discount_dollars
         %td
           - unless admin_promotion.has_free_shipping?
             = fa_icon 'check'
-        %td= admin_promotion.start
-        %td= admin_promotion.end
+        %td= nice_datetime_concise(local_time(admin_promotion.starts_at)) if admin_promotion.starts_at
+        %td= nice_datetime_concise(local_time(admin_promotion.ends_at)) if admin_promotion.ends_at
         %td= link_to 'Show', admin_promotion
         %td= link_to 'Edit', edit_admin_promotion_path(admin_promotion)
         %td= link_to 'Destroy', admin_promotion, method: :delete, data: { confirm: 'Are you sure?' }
