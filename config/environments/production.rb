@@ -100,7 +100,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.asset_host = default_url_host
   config.action_mailer.smtp_settings = {
-      :address => "smtp.gmail.com",,
+      :address => "smtp.gmail.com",
       :port => 587, # Port 25 is throttled on AWS
       :user_name => ENV["SMTP_USER_NAME"], # Your SMTP user here.
       :password => ENV["SMTP_PASSWORD"], # Your SMTP password here.
