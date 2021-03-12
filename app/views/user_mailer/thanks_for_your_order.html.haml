@@ -1,0 +1,11 @@
+%h1(style="font-family: system-ui, -apple-system, BlinkMacSystemFont, Sego=e UI, Helvetica Neue, Helvetica, Arial, sans-serif;text-align: center;margin-bottom: 1.77em;")
+  Thanks for your order
+
+%p(style="font-family: system-ui, -apple-system, BlinkMacSystemFont, Sego=e UI, Helvetica Neue, Helvetica, Arial, sans-serif; text-align:left;")
+  - if @user.first_name.present? && @user.name.present?
+    = succeed(",") do
+      = @user.first_name if @user.first_name.present?
+
+%p(style="font-family: system-ui, -apple-system, BlinkMacSystemFont, Sego=e UI, Helvetica Neue, Helvetica, Arial, sans-serif; text-align:left;")
+  Thanks for placing your order on SlimeKangaroo.com. We are preparing it now and will let you know when it has shipped.
+

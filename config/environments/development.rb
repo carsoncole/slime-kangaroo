@@ -3,6 +3,8 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   config.hosts << /.*\.ngrok\.io$/
 
+  LOCAL_SERVER = "https://7813a471628a.ngrok.io"
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
@@ -36,6 +38,9 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
@@ -72,6 +77,22 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  config.action_mailer.asset_host = LOCAL_SERVER
+  config.action_mailer.perform_caching = false
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.delivery_method = :smtp #:letter_opener #
+  if Rails.application.credentials.actionmailer.present?
+    config.action_mailer.smtp_settings = {
+        :address => "smtp.gmail.com",
+        :port => 587, # Port 25 is throttled on AWS
+        :user_name => Rails.application.credentials ? Rails.application.credentials.actionmailer[:smtp_user_name] : nil,
+        :password => Rails.application.credentials ? Rails.application.credentials.actionmailer[:smtp_password] : nil,
+        :authentication => :login,
+        :enable_starttls_auto => true
+    }
+  end
+
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true

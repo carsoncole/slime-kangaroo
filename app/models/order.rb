@@ -8,6 +8,7 @@ class Order < ApplicationRecord
 
   before_validation :update_status!
   before_destroy :confirm_shopping
+  after_save :send_thank_you_for_your_order_email!, if: Proc.new {|o| o.status_previously_changed? && o.fulfillment? }
 
   validates :status, presence: true
   validates :zip_code, format: { with: /\A\d{5}-\d{4}|\A\d{5}\z/,
@@ -73,6 +74,10 @@ class Order < ApplicationRecord
     status == 'Shopping'
   end
 
+  def fulfillment?
+    status == 'Fulfillment'
+  end
+
   def shipping
     order_items.where(item_type: 'Shipping').last
   end
@@ -103,5 +108,9 @@ class Order < ApplicationRecord
 
   def id_short
     id.slice(0,8)
+  end
+
+  def send_thank_you_for_your_order_email!
+    UserMailer.with(user: user).thanks_for_your_order.deliver_later
   end
 end
