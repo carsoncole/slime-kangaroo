@@ -15,8 +15,6 @@ class UserMailer < ApplicationMailer
   #   en.user_mailer.your_order_has_been_shipped.subject
   #
   def your_order_has_been_shipped
-    @greeting = "Hi"
-
-    mail to: "to@example.org"
+    mail to: @user.email, subject: 'Your order has been shipped'
   end
 end

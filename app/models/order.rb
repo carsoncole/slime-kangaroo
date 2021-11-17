@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   before_validation :update_status!
   before_destroy :confirm_shopping
   after_save :send_thank_you_for_your_order_email!, if: Proc.new {|o| o.status_previously_changed? && o.fulfillment? }
+  after_save :send_your_order_has_been_shipped_email!, if: Proc.new {|o| o.status_previously_changed? && o.shipped? }
 
   validates :status, presence: true
   validates :zip_code, format: { with: /\A\d{5}-\d{4}|\A\d{5}\z/,
@@ -70,6 +71,10 @@ class Order < ApplicationRecord
     tax_item.update(amount: Tax.new(self).amount)
   end
 
+  def shipped?
+    status == 'Shipped'
+  end
+
   def shopping?
     status == 'Shopping'
   end
@@ -112,5 +117,9 @@ class Order < ApplicationRecord
 
   def send_thank_you_for_your_order_email!
     UserMailer.with(user: user).thanks_for_your_order.deliver_later
+  end
+
+  def send_your_order_has_been_shipped_email!
+    UserMailer.with(user: user).your_order_has_been_shipped.deliver_later
   end
 end

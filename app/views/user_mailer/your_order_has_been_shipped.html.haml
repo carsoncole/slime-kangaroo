@@ -1,4 +1,16 @@
-%h1= class_name + "#" + @action
+%h1(style="font-family: system-ui, -apple-system, BlinkMacSystemFont, Sego=e UI, Helvetica Neue, Helvetica, Arial, sans-serif;text-align: center;margin-bottom: 1.77em;")
+  Your order has been shipped
 
-%p
-  = @greeting + ", find me in app/views/user_mailer/your_order_has_been_shipped.html.haml"
+%p(style="font-family: system-ui, -apple-system, BlinkMacSystemFont, Sego=e UI, Helvetica Neue, Helvetica, Arial, sans-serif; text-align:left;")
+  - if @user.first_name.present? && @user.name.present?
+    = succeed(",") do
+      = @user.first_name if @user.first_name.present?
+
+%p(style="font-family: system-ui, -apple-system, BlinkMacSystemFont, Sego=e UI, Helvetica Neue, Helvetica, Arial, sans-serif; text-align:left;")
+  We recently finished preparing your slime, and have now shipped it off to you!
+
+%p(style="font-family: system-ui, -apple-system, BlinkMacSystemFont, Sego=e UI, Helvetica Neue, Helvetica, Arial, sans-serif; text-align:left;")
+  Your order has been shipped by USPS and has a tracking ID of 9505 5066 2591 1319 5164 54.
+
+%p(style="font-family: system-ui, -apple-system, BlinkMacSystemFont, Sego=e UI, Helvetica Neue, Helvetica, Arial, sans-serif; text-align:left;")
+  Thank you!  Slime Kangaroo
